@@ -4,16 +4,64 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#6EB51C"
+    android:background="#6ba84e"
     tools:context=".MainActivity" >
 
-    <ImageButton
-        android:id="@+id/imageButton"
-        android:layout_width="wrap_content"
 
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/ic_up_btn"
-        android:background="@drawable/button_back"
-        tools:layout_editor_absoluteX="105dp"
-        tools:layout_editor_absoluteY="55dp" />
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="24dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/Button_LP_Up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back"
+            app:srcCompat="@drawable/ic_up_btn"
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/Button_LP_Down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_up_btn"
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/Button_LZ_Up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back"
+            app:srcCompat="@drawable/ic_up_btn"
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
+
+        <ImageButton
+            android:id="@+id/Button_LZ_Down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_up_btn"
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
+    </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
