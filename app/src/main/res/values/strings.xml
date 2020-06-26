@@ -1,3 +1,37 @@
 <resources>
     <string name="app_name">BorisemAir</string>
+    <string name="menu">Настройки</string>
+    <string name="theme">Тема</string>
+    <string name="language">Язык</string>
+    <string name="fix">Фиксация всех осей</string>
+    <string name="up">Вверх</string>
+    <string name="down">Вниз</string>
+    <string name="times">На время</string>
+    <string name="apply">OK</string>
+    <string name="auto">Марка авто</string>
+
+    <string-array name="themes">
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="lang">
+        <item>Русский</item>
+        <item>English</item>
+    </string-array>
+
+    <string-array name="time">
+        <item>Выкл.</item>
+        <item>5 сек.</item>
+        <item>10 сек.</item>
+        <item>15 сек.</item>
+    </string-array>
+
+    <string-array name="brand">
+        <item>Mercedes</item>
+        <item>BMW</item>
+        <item>ВАЗ</item>
+    </string-array>
+
+
 </resources>
