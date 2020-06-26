@@ -5,7 +5,7 @@
         android:state_focused="true"
         android:state_pressed="true"/>
     <item
-        android:drawable="@drawable/button_main_shape_pressed"
+        android:drawable="@drawable/button_center_shape_pressed"
         android:state_focused="false"
         android:state_pressed="true"/>
 

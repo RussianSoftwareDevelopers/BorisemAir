@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Settings"
 
     android:background="@color/green_bac">
 
@@ -50,28 +50,17 @@
             android:textColor="@color/black"
             android:textSize="20dp" />
 
-        <Spinner
-            android:id="@+id/chooseTheme"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:entries="@array/themes" />
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:text="@string/language" />
-
-        <Spinner
-            android:id="@+id/chooseLang"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:entries="@array/lang"/>
+            <Spinner
+                android:id="@+id/chooseTheme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/themes" />
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/textView6"
@@ -82,12 +71,17 @@
             android:textSize="20dp"
             android:text="@string/auto" />
 
-        <Spinner
-            android:id="@+id/chooseLogo"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:background="@color/white"
-            android:entries="@array/brand"/>
+            android:layout_height="match_parent">
+
+            <Spinner
+                android:id="@+id/chooseLogo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:entries="@array/brand" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -141,18 +135,23 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:textSize="20dp"
                 android:textColor="@color/black"
                 android:text="@string/times" />
 
-            <Spinner
-                android:id="@+id/whatTime"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:entries="@array/time"
                 android:background="@color/white"
-                android:layout_weight="1"/>
+                android:layout_weight="1">
+
+                <Spinner
+                    android:id="@+id/whatTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"                    android:entries="@array/time"
+                    android:popupBackground="@color/white" />
+            </RelativeLayout>
+
         </LinearLayout>
 
     </LinearLayout>
