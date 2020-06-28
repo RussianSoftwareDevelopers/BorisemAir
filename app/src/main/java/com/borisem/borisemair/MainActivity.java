@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton left_frontWheel_up, left_frontWheel_down, left_backWheel_up, left_backWheel_down, right_frontWheel_up,
             right_frontWheel_down, right_backWheel_up,  right_backWheel_down, all_wheels_up, all_wheels_down;
     Button menuButton;
-
+    View btnview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         menuButton = (Button)findViewById(R.id.menu);
 
+        btnview = (View)findViewById(R.id.btnview);
 
 
         //Методы
