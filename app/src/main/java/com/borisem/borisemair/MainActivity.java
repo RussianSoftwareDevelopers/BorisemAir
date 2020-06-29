@@ -18,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
     ImageButton left_frontWheel_up, left_frontWheel_down, left_backWheel_up, left_backWheel_down, right_frontWheel_up,
             right_frontWheel_down, right_backWheel_up,  right_backWheel_down, all_wheels_up, all_wheels_down;
     Button menuButton;
+    boolean isPressed = true;
     View btnview;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

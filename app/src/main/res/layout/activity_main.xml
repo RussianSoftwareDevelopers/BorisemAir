@@ -12,10 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintStart_toStartOf="parent">
+
+        <ImageButton
+            android:id="@+id/Button_LP_Up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_back"
+            app:srcCompat="@drawable/ic_up_btn"
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
             android:id="@+id/Button_LP_Down"
@@ -26,14 +34,6 @@
             app:srcCompat="@drawable/ic_up_btn"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
-        <ImageButton
-            android:id="@+id/Button_LP_Up"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_back"
-            app:srcCompat="@drawable/ic_up_btn"
-            tools:ignore="MissingConstraints,VectorDrawableCompat" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -41,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="45dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="32dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent">
@@ -94,10 +94,9 @@
     </LinearLayout>
 
     <LinearLayout
-
-        android:layout_width="wrap_content"
+        android:layout_width="202dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="65dp"
+        android:layout_marginBottom="100dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/linearLayout2"
@@ -105,39 +104,41 @@
 
         <ImageButton
             android:id="@+id/button_All_up"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_back_center"
-            app:srcCompat="@drawable/ic_up_btn_center"
+            android:background="@color/green_bac"
+            app:srcCompat="@drawable/central_btn_selector"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <Button
             android:id="@+id/menu"
-            android:layout_width="match_parent"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="2dp"
             android:background="@drawable/btn_center_shape"
             android:text="Borisem" />
 
         <ImageButton
             android:id="@+id/Button_All_Down"
-            android:layout_width="wrap_content"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_back_center"
+            android:background="@color/green_bac"
             android:rotation="180"
-            app:srcCompat="@drawable/ic_up_btn_center"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/central_btn_selector"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
     </LinearLayout>
 
 
     <LinearLayout
-
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="45dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
