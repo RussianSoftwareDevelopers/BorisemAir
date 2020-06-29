@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -16,10 +18,11 @@ import android.widget.ImageButton;
 public class MainActivity extends AppCompatActivity {
     public static   SharedPreferences sPref;
     ImageButton left_frontWheel_up, left_frontWheel_down, left_backWheel_up, left_backWheel_down, right_frontWheel_up,
-            right_frontWheel_down, right_backWheel_up,  right_backWheel_down, all_wheels_up, all_wheels_down;
+            right_frontWheel_down, right_backWheel_up,  right_backWheel_down;
     Button menuButton;
     boolean isPressed = true;
-    View btnview;
+    View all_wheels_up;
+    View all_wheels_down;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,12 +45,12 @@ public class MainActivity extends AppCompatActivity {
         right_backWheel_down = (ImageButton)findViewById(R.id.Button_RZ_Down);
 
         //Все колеса
-        all_wheels_up = (ImageButton)findViewById(R.id.button_All_up);
-        all_wheels_down = (ImageButton)findViewById(R.id.Button_All_Down);
+       // all_wheels_up = (View)findViewById(R.id.button_All_up);
+        all_wheels_down = (View)findViewById(R.id.Button_All_Down);
 
         menuButton = (Button)findViewById(R.id.menu);
 
-        btnview = (View)findViewById(R.id.btnview);
+
 
 
         //Методы
@@ -128,16 +131,10 @@ public class MainActivity extends AppCompatActivity {
         );
 
 
+///        Bitmap animation = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_icon); //Get a bitmap from a image file
 
         //Все колеса
-        all_wheels_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
 
-                    }
-                }
-        );
 
         all_wheels_down.setOnClickListener(
                 new View.OnClickListener() {
