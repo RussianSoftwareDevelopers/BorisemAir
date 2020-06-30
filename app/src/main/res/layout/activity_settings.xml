@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Settings"
 
-    android:background="@color/green_bac">
+    >
 
     <TextView
         android:id="@+id/textMenu"
@@ -52,7 +53,6 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/white"
             android:layout_height="match_parent">
 
             <Spinner
@@ -62,26 +62,6 @@
                 android:entries="@array/themes" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:text="@string/auto" />
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="match_parent">
-
-            <Spinner
-                android:id="@+id/chooseLogo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/brand" />
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,15 +120,18 @@
                 android:text="@string/times" />
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
+                 android:background="?colorAccent"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1">
+
 
                 <Spinner
                     android:id="@+id/whatTime"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"                    android:entries="@array/time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:entries="@array/time"
                     android:popupBackground="@color/white" />
             </RelativeLayout>
 

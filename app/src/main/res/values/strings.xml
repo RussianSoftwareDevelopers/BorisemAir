@@ -9,6 +9,8 @@
     <string name="times">На время</string>
     <string name="apply">OK</string>
     <string name="auto">Марка авто</string>
+    <string name="todo">TODO</string>
+    <string name="show">Выбирете эмблему</string>
 
     <string-array name="themes">
         <item>Light</item>

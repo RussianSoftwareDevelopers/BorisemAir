@@ -2,6 +2,7 @@
     android:width="30dp"
     android:height="30dp"
     android:viewportWidth="124"
+    
     android:viewportHeight="141">
 
     <path

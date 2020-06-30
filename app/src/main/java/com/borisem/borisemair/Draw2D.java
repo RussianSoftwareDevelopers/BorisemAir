@@ -30,7 +30,7 @@ public class Draw2D extends View{
 
                 paint = new Paint();
 
-                bitmapSource = BitmapFactory.decodeResource(getResources(), R.drawable.ic_roundbutton);
+                bitmapSource = BitmapFactory.decodeResource(getResources(), R.drawable.button_back);
 
                 matrix = new Matrix();
                 // matrix.postScale(10, 15);
