@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="50dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="180dp"
+    tools:ignore="MissingDefaultResource">
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout6"
+        android:layout_width="70dp"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:background="@color/grey"
+        android:orientation="horizontal"
+        tools:ignore="MissingConstraints">
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_info_passive"
+        android:textAlignment="center"
+        style="@style/While"
+        android:layout_marginTop="20dp"
+        android:text="@string/textinfobarRight" />
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_info_passive"
+        android:textAlignment="center"
+        style="@style/While"
+
+        android:layout_below="@id/textView1" />
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/text_info_passive"
+        android:textAlignment="center"
+        style="@style/While"
+        android:text="@string/textinfobarFront"
+        android:layout_below="@id/textView2" />
+
+</RelativeLayout>

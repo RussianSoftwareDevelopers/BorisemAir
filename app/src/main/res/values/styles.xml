@@ -1,21 +1,32 @@
 <resources>
     <!-- Base application theme. -->
     <style name="AppThemeLight" parent="Theme.AppCompat.NoActionBar">
-    <!--    &lt;!&ndash; Customize your theme here. &ndash;&gt;
+    <!--  &lt;!&ndash; Customize your theme here. &ndash;&gt;
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>-->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:colorBackground">@color/red</item>
         <item name="android:textColor">@color/black</item>
-
+        <item name="color">@color/purple </item>
     </style>
 
 
     <style name="AppThemeDark"  parent="Theme.AppCompat.NoActionBar">
 <!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
         <item name="colorAccent">@color/black</item>
-       <item name="android:textColor">@color/yellow</item>
+        <item name="android:textColor">@color/yellow</item>
         <item name="android:colorBackground">@color/colorPrimaryDark</item>
+        <item name="color">@color/orange</item>
     </style>
+
+    <style name="While">
+        <item name="android:textSize">13sp</item>
+        <item name="android:padding">10dp</item>
+
+
+
+
+    </style>
+
 
 </resources>

@@ -11,6 +11,11 @@
     <string name="auto">Марка авто</string>
     <string name="todo">TODO</string>
     <string name="show">Выбирете эмблему</string>
+    <string name="borisem">Borisem</string>
+    <string name="textinfobarLeft">ЛЕВЫЙ</string>
+    <string name="textinfobarRight">ПРАВЫЙ</string>
+    <string name="textinfobarFront">ПЕРЕД</string>
+    <string name="textinfobarBack">ЗАД</string>
 
     <string-array name="themes">
         <item>Light</item>
