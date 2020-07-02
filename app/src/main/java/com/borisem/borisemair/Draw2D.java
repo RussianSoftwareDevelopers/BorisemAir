@@ -1,18 +1,13 @@
 package com.borisem.borisemair;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.ImageButton;
 
 public class Draw2D extends View{
 
@@ -30,7 +25,7 @@ public class Draw2D extends View{
 
                 paint = new Paint();
 
-                bitmapSource = BitmapFactory.decodeResource(getResources(), R.drawable.button_back);
+                bitmapSource = BitmapFactory.decodeResource(getResources(), R.drawable.button_back_down);
 
                 matrix = new Matrix();
                 // matrix.postScale(10, 15);
