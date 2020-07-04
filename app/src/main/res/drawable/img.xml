@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:bottom="130dp" android:drawable="@drawable/ic_up"/>
-    <item android:top="130dp" android:drawable="@drawable/ic_down"/>
+    <item android:bottom="@dimen/paddingarrowcentr" android:drawable="@drawable/ic_up"/>
+    <item android:top="@dimen/paddingarrowcentr" android:drawable="@drawable/ic_down"/>
 
 </layer-list>

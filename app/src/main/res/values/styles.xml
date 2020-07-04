@@ -20,8 +20,8 @@
     </style>
 
     <style name="While">
-        <item name="android:textSize">13sp</item>
-        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/TextsizeWheel</item>
+        <item name="android:padding">@dimen/PaddingWhile</item>
     </style>
 
 

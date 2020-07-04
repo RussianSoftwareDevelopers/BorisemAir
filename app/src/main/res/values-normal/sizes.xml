@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <dimen name="sizecentrbtn">200dp</dimen>
+    <dimen name="sizecentrsmallbtn">100dp</dimen>
+    <dimen name="sizeinfopanel">300dip</dimen>
+
+    <dimen name="sizearrowbtnwidth">80dip</dimen>
+    <dimen name="sizearrowbtnheight">150dip</dimen>
+
+    <dimen name="sizearrowbtnwidthcentr">170dip</dimen>
+    <dimen name="sizearrowbtnheightcentr">85dip</dimen>
+
+
+    <dimen name="stroke">4dip</dimen>
+    <dimen name="sizearrow">50dip</dimen>
+    <dimen name="sizearrowcentre">80dip</dimen>
+
+
+    <dimen name="paddingarrow">12dp</dimen>
+    <dimen name="paddingarrowcentr">150dp</dimen>
+    <string name="borisem">Borisem</string>
+
+
+
+
+    <!--WHEELE-->
+    <dimen name="PaddingWhile">5dip</dimen>
+    <dimen name="TextsizeWheel">10sp</dimen>
+    <dimen name="marginwheel">12dip</dimen>
+    <dimen name="sizeWheelWight">90dip</dimen>
+    <dimen name="sizeWheelheight">110dip</dimen>
+
+    <dimen name="TextsizeCentr">20sp</dimen>
+   <!-- <dimen name="margimButton_LP_UpRight">5dip</dimen>
+    <dimen name="margimButton_LP_UpLeft">32dip</dimen>
+    <dimen name="margimButton_LP_UpTop">25dip</dimen>
+    <dimen name="margimButton_LP_UpBottom">5dip</dimen>-->
+    <dimen name="Textsize">18sp</dimen>
+
+
+    <dimen name="margimButton_LZ_UpRight">30dip</dimen>
+    <dimen name="margimButton_LZ_UpLeft">8dip</dimen>
+    <dimen name="margimButton_LZ_UpVertical">15dp</dimen>
+    <dimen name="margimButton_LZ_UpTop">5dp</dimen>
+    <dimen name="margimButton_LZ_UpBottom">25dp</dimen>
+
+
+
+
+
+
+</resources>

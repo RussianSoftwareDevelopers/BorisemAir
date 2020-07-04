@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="50dp"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_height="180dp"
+    android:layout_height="match_parent"
     tools:ignore="MissingDefaultResource">
+
+
+
+
 
 
     <LinearLayout
         android:id="@+id/linearLayout6"
-        android:layout_width="70dp"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:background="@color/grey"
+        android:layout_marginHorizontal="@dimen/marginwheel"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
     </LinearLayout>
@@ -21,24 +26,26 @@
 
     <TextView
         android:id="@+id/textView1"
+        style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/textView2"
         android:background="@drawable/text_info_passive"
-        android:textAlignment="center"
-        style="@style/While"
-        android:layout_marginTop="20dp"
-        android:text="@string/textinfobarLeft" />
+        android:text="@string/textinfobarLeft"
+
+        android:textAlignment="center" />
 
 
     <TextView
         android:id="@+id/textView2"
+        style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/text_info_passive"
-        android:textAlignment="center"
-        style="@style/While"
 
-        android:layout_below="@+id/textView1" />
+        android:layout_centerVertical="true"
+        android:gravity="center"
+        android:background="@drawable/text_info_passive"
+        android:textAlignment="center" />
 
 
     <TextView
@@ -48,6 +55,7 @@
         android:background="@drawable/text_info_passive"
         android:textAlignment="center"
         style="@style/While"
+
         android:text="@string/textinfobarBack"
         android:layout_below="@id/textView2" />
 

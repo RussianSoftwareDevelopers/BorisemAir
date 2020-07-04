@@ -29,11 +29,12 @@
         android:layout_height="@dimen/sizearrowbtnheight"
 
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+        app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.41000003"
+        app:layout_constraintVertical_bias="0.23000002"
         tools:ignore="MissingConstraints">
 
         <ImageButton
@@ -64,10 +65,10 @@
 
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout5"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout7"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.92">
+        app:layout_constraintVertical_bias="0.74">
 
         <ImageButton
             android:id="@+id/Button_LZ_Up"
@@ -96,10 +97,10 @@
         android:layout_width="@dimen/sizearrowbtnwidth"
         android:layout_height="@dimen/sizearrowbtnheight"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout6"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         app:layout_constraintVertical_bias="0.23000002"
         tools:ignore="MissingConstraints">
@@ -132,10 +133,10 @@
         android:layout_height="@dimen/sizearrowbtnheight"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout"
+        app:layout_constraintEnd_toStartOf="@+id/linearLayout3"
+        app:layout_constraintStart_toEndOf="@+id/linearLayout5"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.92"
+        app:layout_constraintVertical_bias="0.74"
         tools:ignore="MissingConstraints">
 
         <ImageButton
@@ -244,8 +245,7 @@
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
             app:srcCompat="@drawable/ic_center_btn"
-
-            tools:ignore="MissingCtraints,VectorDrawableCompat" />
+            tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
             android:id="@+id/Button_Z_Down"

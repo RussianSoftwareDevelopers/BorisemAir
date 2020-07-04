@@ -16,8 +16,7 @@
     <string name="textinfobarRight">ПРАВОЕ</string>
     <string name="textinfobarFront">ПЕРЕД</string>
     <string name="textinfobarBack">ЗАД</string>
-
-
+    <string name="textview">ТЕКСТ</string>
 
 
     <string-array name="themes">
