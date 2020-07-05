@@ -43,6 +43,7 @@
     <dimen name="margimButton_LZ_UpVertical">15dp</dimen>
     <dimen name="margimButton_LZ_UpTop">5dp</dimen>
     <dimen name="margimButton_LZ_UpBottom">25dp</dimen>
+    <dimen name="paddingAdapter">2dip</dimen>
 
 
 

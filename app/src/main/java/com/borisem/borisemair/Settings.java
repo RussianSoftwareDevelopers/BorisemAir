@@ -7,15 +7,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
+import static com.borisem.borisemair.MainActivity.NeedRecreate;
+
 public class Settings extends AppCompatActivity {
     private Spinner spinnerChangeTheme, chooseSec;
     SharedPreferences sp ;
+    Button oKbtn;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -23,7 +27,7 @@ public class Settings extends AppCompatActivity {
 
         setContentView(R.layout.activity_settings);
 
-      sp =  PreferenceManager.getDefaultSharedPreferences(this);
+        sp =  PreferenceManager.getDefaultSharedPreferences(this);
 
         spinnerChangeTheme=(Spinner)findViewById(R.id.chooseTheme);
         ArrayList<String> list = new ArrayList<>();
@@ -40,6 +44,21 @@ public class Settings extends AppCompatActivity {
         seconds.add(3, "15 сек.");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.adapter, seconds);
         chooseSec.setAdapter(adapter1);
+
+        oKbtn = (Button)findViewById(R.id.applyButton);
+
+oKbtn.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+
+        NeedRecreate = true;
+
+
+        finish();
+    }
+});
+
+
 
         switch (sp.getInt("THEME", R.style.AppThemeLight))
         {

@@ -34,23 +34,31 @@ public class MainActivity extends AppCompatActivity {
     boolean isPressed = true;
    public static int theme;
     FragmentManager supportFragmentManager;
-
+    public static boolean NeedRecreate = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("TAG", "onCreate: "+ getDensityName(this));
+     //   Log.d("TAG", "onCreate: "+ getDensityName(this));
         sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
 
         theme  = sp.getInt("THEME", R.style.AppThemeLight);
 
+        int  idbrand = sp.getInt("bradnds", 0);
+
         setTheme(theme);
-        Log.d("TAG", "onItemSelected: " + theme);
+      //  Log.d("TAG", "onItemSelected: " + theme);
         setContentView(R.layout.activity_main);
 
         btn_menu = (Button)findViewById(R.id.menu);
+
+        if(idbrand!=0 ) {
+            btn_menu.setBackgroundResource(idbrand);
+            btn_menu.setText("");
+        }
+
         centr_btn=(ImageButton)findViewById(R.id.centr_btn);
         //Кнопки на главном экране
         //Левые колеса вверх/вниз
@@ -154,7 +162,9 @@ public class MainActivity extends AppCompatActivity {
                     public void onDialogClickListener(int id) {
                         btn_menu.setText("");
                         btn_menu.setBackgroundResource(id);
-
+                       SharedPreferences.Editor editor = sp.edit();
+                       editor.putInt("bradnds", id);
+                       editor.apply();
 
                     }
                 });
@@ -263,6 +273,17 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(NeedRecreate)
+        {
+
+            recreate();
+            NeedRecreate =false;
+        }
+    }
 
     private static String getDensityName(Context context) {
         float density = context.getResources().getDisplayMetrics().density;

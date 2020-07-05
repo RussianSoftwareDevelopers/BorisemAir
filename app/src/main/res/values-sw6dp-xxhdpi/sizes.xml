@@ -2,9 +2,9 @@
 <resources>
 
 
-    <dimen name="sizecentrbtn">140dp</dimen>
+    <dimen name="sizecentrbtn">160dp</dimen>
     <dimen name="sizecentrsmallbtn">70dp</dimen>
-    <dimen name="sizeinfopanel">340dip</dimen>
+    <dimen name="sizeinfopanel">300dip</dimen>
 
     <dimen name="sizearrowbtnwidth">40dip</dimen>
     <dimen name="sizearrowbtnheight">140dip</dimen>
@@ -27,17 +27,17 @@
 
     <!--WHEELE-->
     <dimen name="PaddingWhile">4dip</dimen>
-    <dimen name="TextsizeWheel">7sp</dimen>
+    <dimen name="TextsizeWheel">10sp</dimen>
     <dimen name="marginwheel">12dip</dimen>
-    <dimen name="sizeWheelWight">70dip</dimen>
-    <dimen name="sizeWheelheight">80dip</dimen>
+    <dimen name="sizeWheelWight">90dip</dimen>
+    <dimen name="sizeWheelheight">100dip</dimen>
 
     <dimen name="TextsizeCentr">15sp</dimen>
     <!-- <dimen name="margimButton_LP_UpRight">5dip</dimen>
      <dimen name="margimButton_LP_UpLeft">32dip</dimen>
      <dimen name="margimButton_LP_UpTop">25dip</dimen>
      <dimen name="margimButton_LP_UpBottom">5dip</dimen>-->
-    <dimen name="Textsize">18sp</dimen>
+    <dimen name="Textsize">19sp</dimen>
 
 
     <dimen name="margimButton_LZ_UpRight">30dip</dimen>
@@ -46,5 +46,4 @@
     <dimen name="margimButton_LZ_UpTop">5dp</dimen>
     <dimen name="margimButton_LZ_UpBottom">25dp</dimen>
     <dimen name="paddingAdapter">10dip</dimen>
-
 </resources>
