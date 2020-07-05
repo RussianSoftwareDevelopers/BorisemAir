@@ -4,7 +4,7 @@
 
     <dimen name="sizecentrbtn">140dp</dimen>
     <dimen name="sizecentrsmallbtn">70dp</dimen>
-    <dimen name="sizeinfopanel">340dip</dimen>
+    <dimen name="sizeinfopanel">200dip</dimen>
 
     <dimen name="sizearrowbtnwidth">40dip</dimen>
     <dimen name="sizearrowbtnheight">140dip</dimen>

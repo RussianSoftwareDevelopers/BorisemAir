@@ -6,12 +6,15 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class Settings extends AppCompatActivity {
-    private Spinner spinnerChangeTheme;
+    private Spinner spinnerChangeTheme, chooseSec;
     SharedPreferences sp ;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,8 +26,20 @@ public class Settings extends AppCompatActivity {
       sp =  PreferenceManager.getDefaultSharedPreferences(this);
 
         spinnerChangeTheme=(Spinner)findViewById(R.id.chooseTheme);
+        ArrayList<String> list = new ArrayList<>();
+        list.add(0, "Светлая");
+        list.add(1, "Темная");
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.adapter, list);
+        spinnerChangeTheme.setAdapter(adapter);
 
-
+        chooseSec = (Spinner)findViewById(R.id.whatTime);
+        ArrayList<String> seconds = new ArrayList<>();
+        seconds.add(0, "Выкл.");
+        seconds.add(1, "5 сек.");
+        seconds.add(2, "10 сек.");
+        seconds.add(3, "15 сек.");
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.adapter, seconds);
+        chooseSec.setAdapter(adapter1);
 
         switch (sp.getInt("THEME", R.style.AppThemeLight))
         {

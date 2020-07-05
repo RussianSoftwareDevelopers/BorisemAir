@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("TAG", "onCreate: "+ getDensityName(this));
         sPref = getPreferences(MODE_PRIVATE);
         SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
@@ -85,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("TAG", "onTouch: "+event.getY());
 */
 
+
+
            if(event.getY() < (v.getHeight()/2)) {
 
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -128,6 +131,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
 
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -256,8 +261,27 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    }
 
 
+    private static String getDensityName(Context context) {
+        float density = context.getResources().getDisplayMetrics().density;
+        if (density >= 4.0) {
+            return "xxxhdpi";
+        }
+        if (density >= 3.0) {
+            return "xxhdpi";
+        }
+        if (density >= 2.0) {
+            return "xhdpi";
+        }
+        if (density >= 1.5) {
+            return "hdpi";
+        }
+        if (density >= 1.0) {
+            return "mdpi";
+        }
+        return "ldpi";
     }
 
 }
