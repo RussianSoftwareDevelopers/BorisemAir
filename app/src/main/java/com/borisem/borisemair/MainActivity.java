@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
         theme  = sp.getInt("THEME", R.style.AppThemeLight);
 
-        int  idbrand = sp.getInt("bradnds", 0);
+        String  idbrand = sp.getString("bradnds", "");
 
         setTheme(theme);
       //  Log.d("TAG", "onItemSelected: " + theme);
@@ -54,8 +54,8 @@ public class MainActivity extends AppCompatActivity {
 
         btn_menu = (Button)findViewById(R.id.menu);
 
-        if(idbrand!=0 ) {
-            btn_menu.setBackgroundResource(idbrand);
+        if(idbrand!="" ) {
+            btn_menu.setBackgroundResource(getResources().getIdentifier(idbrand,"drawable","com.borisem.borisemair"));
             btn_menu.setText("");
         }
 
@@ -161,9 +161,12 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onDialogClickListener(int id) {
                         btn_menu.setText("");
+
                         btn_menu.setBackgroundResource(id);
                        SharedPreferences.Editor editor = sp.edit();
-                       editor.putInt("bradnds", id);
+
+
+                       editor.putString("bradnds",  getResources().getResourceName(id));
                        editor.apply();
 
                     }
@@ -277,6 +280,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        Log.d("TAG", "onResume: "+ Build.VERSION.SDK_INT);
         if(NeedRecreate)
         {
 
