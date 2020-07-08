@@ -7,7 +7,7 @@
     <dimen name="sizeinfopanel">300dip</dimen>
 
     <dimen name="sizearrowbtnwidth">80dip</dimen>
-    <dimen name="sizearrowbtnheight">0dip</dimen>
+    <dimen name="sizearrowbtnheight">80dip</dimen>
 
     <dimen name="sizearrowbtnwidthcentr">170dip</dimen>
     <dimen name="sizearrowbtnheightcentr">85dip</dimen>
@@ -16,7 +16,7 @@
     <dimen name="stroke">4dip</dimen>
     <dimen name="sizearrow">50dip</dimen>
     <dimen name="sizearrowcentre">80dip</dimen>
-
+    <dimen name="paddingarrowdown">1dp</dimen>
 
     <dimen name="paddingarrow">12dp</dimen>
     <dimen name="paddingarrowcentr">150dp</dimen>

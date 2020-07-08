@@ -6,4 +6,5 @@
     <dimen name="sizecentrsmallbtn">150dp</dimen>
     <dimen name="paddingarrow">250dp</dimen>
     <dimen name="sizeinfopanel">600dp</dimen>
+    <dimen name="paddingarrowdown">12dp</dimen>
 </resources>

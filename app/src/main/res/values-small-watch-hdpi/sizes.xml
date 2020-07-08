@@ -19,6 +19,7 @@
 
 
     <dimen name="paddingarrow">12dp</dimen>
+    <dimen name="paddingarrowdown">1dp</dimen>
     <dimen name="paddingarrowcentr">28dp</dimen>
     <string name="borisem">B</string>
 

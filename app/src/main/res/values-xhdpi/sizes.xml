@@ -2,6 +2,6 @@
 <resources>
 
     <dimen name="sizecentrbtn">150dp</dimen>
-
+    <dimen name="paddingarrowdown">1dp</dimen>
 
 </resources>

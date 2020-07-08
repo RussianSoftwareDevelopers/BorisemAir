@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity" >
+    tools:context=".MainActittvity" >
 
 
     <LinearLayout
@@ -195,7 +195,7 @@
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="@dimen/sizearrowbtnwidthcentr"
-        android:layout_height="@dimen/sizearrowbtnheightcentr"
+        android:layout_height="300dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -209,7 +209,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_center_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -218,8 +218,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_down"
-            android:rotation="180"
-            app:srcCompat="@drawable/ic_center_btn"
+            app:srcCompat="@drawable/ic_arrow_down"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>

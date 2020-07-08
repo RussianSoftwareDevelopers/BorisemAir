@@ -7,9 +7,9 @@
     <dimen name="sizeinfopanel">200dip</dimen>
 
     <dimen name="sizearrowbtnwidth">50dip</dimen>
-    <dimen name="sizearrowbtnheight">1dip</dimen>
+    <dimen name="sizearrowbtnheight">50dip</dimen>
 
-    <dimen name="sizearrowbtnwidthcentr">1dip</dimen>
+    <dimen name="sizearrowbtnwidthcentr">80dip</dimen>
     <dimen name="sizearrowbtnheightcentr">70dip</dimen>
 
 
@@ -19,6 +19,8 @@
 
 
     <dimen name="paddingarrow">16dp</dimen>
+    <dimen name="paddingarrowdown">1dp</dimen>
+
     <dimen name="paddingarrowcentr">110dp</dimen>
     <string name="borisem">Borisem</string>
 
