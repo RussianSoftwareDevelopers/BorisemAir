@@ -7,9 +7,9 @@
     <dimen name="sizeinfopanel">200dip</dimen>
 
     <dimen name="sizearrowbtnwidth">50dip</dimen>
-    <dimen name="sizearrowbtnheight">150dip</dimen>
+    <dimen name="sizearrowbtnheight">1dip</dimen>
 
-    <dimen name="sizearrowbtnwidthcentr">150dip</dimen>
+    <dimen name="sizearrowbtnwidthcentr">1dip</dimen>
     <dimen name="sizearrowbtnheightcentr">70dip</dimen>
 
 

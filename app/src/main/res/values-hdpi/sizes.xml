@@ -4,10 +4,10 @@
 
     <dimen name="sizecentrbtn">100dp</dimen>
     <dimen name="sizecentrsmallbtn">100dp</dimen>
-    <dimen name="sizeinfopanel">300dip</dimen>
+    <dimen name="sizeinfopanel">10dip</dimen>
 
     <dimen name="sizearrowbtnwidth">80dip</dimen>
-    <dimen name="sizearrowbtnheight">150dip</dimen>
+    <dimen name="sizearrowbtnheight">1dip</dimen>
 
     <dimen name="sizearrowbtnwidthcentr">170dip</dimen>
     <dimen name="sizearrowbtnheightcentr">85dip</dimen>
