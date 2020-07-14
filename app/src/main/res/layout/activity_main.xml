@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActittvity" >
+
+    tools:context=".MainActivity">
 
 
     <LinearLayout
         android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/sizeinfopanel"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         tools:ignore="MissingConstraints">
 
         <include
@@ -33,7 +36,6 @@
         app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.41000003"
         tools:ignore="MissingConstraints">
 
         <ImageButton
@@ -42,7 +44,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -50,9 +52,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
+            android:background="@drawable/button_back_up"
             android:rotation="180"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>
@@ -61,7 +63,6 @@
         android:id="@+id/linearLayout"
         android:layout_width="@dimen/sizearrowbtnwidth"
         android:layout_height="@dimen/sizearrowbtnheight"
-
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/relativeLayout"
@@ -75,7 +76,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -83,9 +84,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
+            android:background="@drawable/button_back_up"
             android:rotation="180"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>
@@ -100,7 +101,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/relativeLayout"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.41000003"
         tools:ignore="MissingConstraints">
 
         <ImageButton
@@ -109,7 +109,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -117,9 +117,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
+            android:background="@drawable/button_back_up"
             android:rotation="180"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>
@@ -143,7 +143,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -151,9 +151,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
+            android:background="@drawable/button_back_up"
             android:rotation="180"
-            app:srcCompat="@drawable/ic_up_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>
@@ -162,10 +162,10 @@
         android:id="@+id/relativeLayout"
         android:layout_width="@dimen/sizecentrbtn"
         android:layout_height="@dimen/sizecentrbtn"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout6"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
         tools:ignore="MissingConstraints">
 
         <Button
@@ -174,7 +174,6 @@
             android:layout_height="@dimen/sizecentrsmallbtn"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-
             android:background="@drawable/btn_centr_selector"
             android:text="@string/borisem"
             android:textColor="@color/black"
@@ -188,20 +187,18 @@
             android:background="@drawable/btn_center_shape"
             android:src="@drawable/img" />
 
-
     </RelativeLayout>
 
 
     <LinearLayout
         android:id="@+id/linearLayout5"
         android:layout_width="@dimen/sizearrowbtnwidthcentr"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/sizearrowbtnheightcentr"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.97">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout">
 
         <ImageButton
             android:id="@+id/Button_P_Up"
@@ -217,8 +214,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
-            app:srcCompat="@drawable/ic_arrow_down"
+            android:background="@drawable/button_back_up"
+            android:rotation="180"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>
@@ -229,11 +227,10 @@
         android:layout_width="@dimen/sizearrowbtnwidthcentr"
         android:layout_height="@dimen/sizearrowbtnheightcentr"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/relativeLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:layout_constraintVertical_bias="0.04000002">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <ImageButton
             android:id="@+id/Button_Z_Up"
@@ -241,8 +238,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@drawable/button_back_up"
-            app:srcCompat="@drawable/ic_center_btn"
-
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingCtraints,VectorDrawableCompat" />
 
         <ImageButton
@@ -250,10 +246,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/button_back_down"
+            android:background="@drawable/button_back_up"
             android:rotation="180"
-
-            app:srcCompat="@drawable/ic_center_btn"
+            app:srcCompat="@drawable/ic_arrow_up"
             tools:ignore="MissingConstraints,VectorDrawableCompat" />
 
     </LinearLayout>

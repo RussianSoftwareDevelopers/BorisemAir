@@ -4,7 +4,11 @@
   <!--  <corners
         android:topLeftRadius="150dp"
         android:topRightRadius="150dp" />-->
-    <stroke android:width="@dimen/stroke" android:color="#000000"/>
+    <stroke android:width="@dimen/stroke" android:color="@color/white"/>
 
-
+    <gradient
+        android:startColor="@color/blue1"
+        android:centerColor="@color/white"
+        android:endColor="@color/blue1"
+        android:angle="90" />
 </shape>

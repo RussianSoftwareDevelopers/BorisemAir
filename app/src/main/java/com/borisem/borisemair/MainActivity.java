@@ -263,7 +263,7 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-
+        Log.d("TAG", "onResume: "+ getDensityName(this));
 ///        Bitmap animation = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_icon); //Get a bitmap from a image file
 
         //Все колеса
