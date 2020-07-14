@@ -7,8 +7,8 @@
     <stroke android:width="@dimen/stroke" android:color="@color/white"/>
 
     <gradient
-        android:startColor="@color/blue1"
+        android:startColor="@color/dark_theme_bac1"
         android:centerColor="@color/white"
-        android:endColor="@color/blue1"
+        android:endColor="@color/dark_theme_bac1"
         android:angle="90" />
 </shape>

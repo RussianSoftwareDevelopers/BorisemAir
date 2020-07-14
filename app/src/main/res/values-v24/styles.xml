@@ -10,7 +10,7 @@
            <item name="color">@color/purple </item>
            <item name="android:background">@drawable/background_light</item>-->
         <!--  <item name="android:colorBackground">@drawable/background_light</item> -->
-        <item name="android:windowBackgroundFallback">@drawable/background_light</item>
+        <item name="android:windowBackground">@drawable/background_light</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
@@ -22,7 +22,7 @@
 
            <item name="">@drawable/background</item>-->
         <!-- <item name="android:colorBackground">@drawable/background</item> -->
-        <item name="android:windowBackgroundFallback">@drawable/background</item>
+        <item name="android:windowBackground">@drawable/background</item>
 
         <item name="android:textColor">@color/white</item>
     </style>
