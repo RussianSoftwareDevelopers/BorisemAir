@@ -32,24 +32,19 @@ public class MainActivity extends AppCompatActivity {
             right_frontWheel_down, right_backWheel_up,  right_backWheel_down, centr_btn;
     Button btn_menu;
     boolean isPressed = true;
-   public static int theme;
+    public static int theme;
     FragmentManager supportFragmentManager;
     public static boolean NeedRecreate = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-     //   Log.d("TAG", "onCreate: "+ getDensityName(this));
         sPref = getPreferences(MODE_PRIVATE);
         final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-
-
         theme  = sp.getInt("THEME", R.style.AppThemeLight);
-
         String  idbrand = sp.getString("bradnds", "");
-
         setTheme(theme);
-      //  Log.d("TAG", "onItemSelected: " + theme);
         setContentView(R.layout.activity_main);
 
         btn_menu = (Button)findViewById(R.id.menu);
@@ -76,9 +71,7 @@ public class MainActivity extends AppCompatActivity {
         right_backWheel_down = (ImageButton)findViewById(R.id.Button_RZ_Down);
 
         //Все колеса
-       // all_wheels_up = (View)findViewById(R.id.button_All_up);
-
-
+        //all_wheels_up = (View)findViewById(R.id.button_All_up);
 
         supportFragmentManager = getSupportFragmentManager();
 
@@ -86,52 +79,31 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-
-
-           /*     Log.d("TAG", "onTouch: "+ event.getAction());
-
+           /*   Log.d("TAG", "onTouch: "+ event.getAction());
                 Log.d("TAG", "onTouch: "+event.getX());
-                Log.d("TAG", "onTouch: "+event.getY());
-*/
-
-
+                Log.d("TAG", "onTouch: "+event.getY());*/
 
            if(event.getY() < (v.getHeight()/2)) {
-
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
                         {
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color_up));
                             }
-
                         }
-
                     }
-
                 }
 
                 if(event.getY() > (v.getHeight()/2)) {
-
-
-
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-
                             {
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
                                 }
-
                             }
-
-
-
-
                     }
                 }
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
                     }
@@ -146,9 +118,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(),Settings.class);
-
                 startActivity(intent);
-
             }
         });
 
@@ -160,11 +130,9 @@ public class MainActivity extends AppCompatActivity {
                 final FireMissilesDialogFragment schermpje = new FireMissilesDialogFragment(new FireMissilesDialogFragment.OnButtonClick() {
                     @Override
                     public void onDialogClickListener(int id) {
-                        btn_menu.setText("");
-
-                        btn_menu.setBackgroundResource(id);
+                       btn_menu.setText("");
+                       btn_menu.setBackgroundResource(id);
                        SharedPreferences.Editor editor = sp.edit();
-
 
                        editor.putString("bradnds",  getResources().getResourceName(id));
                        editor.apply();
@@ -177,10 +145,6 @@ public class MainActivity extends AppCompatActivity {
                 schermpje.setArguments(bundle);
 
                 schermpje.show(supportFragmentManager, "mydialog");
-
-
-
-
                 return false;
 
             }
@@ -258,22 +222,11 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
                     }
                 }
         );
 
         Log.d("TAG", "onResume: "+ getDensityName(this));
-///        Bitmap animation = BitmapFactory.decodeResource(getApplicationContext().getResources(), R.drawable.ic_icon); //Get a bitmap from a image file
-
-        //Все колеса
-
-
-
-
-
-
-
     }
 
 
@@ -284,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
         Log.d("TAG", "onResume: "+ Build.VERSION.SDK_INT);
         if(NeedRecreate)
         {
-
             recreate();
             NeedRecreate =false;
         }

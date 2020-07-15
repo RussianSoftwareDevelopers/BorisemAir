@@ -2,27 +2,16 @@ package com.borisem.borisemair;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.Switch;
-import android.widget.TextView;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
-import java.util.Objects;
-
 
 public class FireMissilesDialogFragment extends DialogFragment {
 
@@ -45,10 +34,7 @@ public class FireMissilesDialogFragment extends DialogFragment {
         // Use the Builder class for convenient dialog construction
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-
-
         View view =  LayoutInflater.from(getContext()).inflate(R.layout.dialog,null);
-
 
         recyclerView = (RecyclerView)view.findViewById(R.id.recyle);
         recyclerView.setHasFixedSize(true);
@@ -64,47 +50,25 @@ public class FireMissilesDialogFragment extends DialogFragment {
         adapterBrands = new AdapterBrands(view.getContext(), integersBrands, new AdapterBrands.OncheckBrand() {
             @Override
             public void OnCheckBrandLisner(int id) {
-
-
                 onClick.onDialogClickListener(id);
-
                 dismiss();
-
             }
         });
 
         recyclerView.setAdapter(adapterBrands);
-
         recyclerView.setLayoutManager(linearLayoutManager);
 
-
-
-
         builder.setView(view);
-
         builder.setMessage(message)
                 .setPositiveButton("", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
 
-
-
-
                             }
-
-
                         });
-
-
-
-
-
-
 
         // Create the AlertDialog object and return it
         return builder.create();
     }
-
-
 
 
 
@@ -117,23 +81,15 @@ public class FireMissilesDialogFragment extends DialogFragment {
         } catch (IllegalStateException e) {
 
         }
-
-
-
     }
 
     OnButtonClick onClick;
 
 
 
-
-
     public FireMissilesDialogFragment(OnButtonClick _onClick)
     {
         this.onClick = _onClick;
-
-
-
     }
     public FireMissilesDialogFragment( )
     {
@@ -142,6 +98,4 @@ public class FireMissilesDialogFragment extends DialogFragment {
     public interface OnButtonClick {
         void onDialogClickListener(int id);
     }
-
-
 }
