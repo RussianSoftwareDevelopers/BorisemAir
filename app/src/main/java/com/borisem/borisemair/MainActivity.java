@@ -23,27 +23,39 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static   SharedPreferences sPref;
     ImageButton left_frontWheel_up, left_frontWheel_down, left_backWheel_up, left_backWheel_down, right_frontWheel_up,
-            right_frontWheel_down, right_backWheel_up,  right_backWheel_down, centr_btn;
+            right_frontWheel_down, right_backWheel_up,  right_backWheel_down, centr_btn, centr_front_up, centr_front_down, centr_back_up, centr_back_down,
+            all_wheel_ap, all_wheel_down;
     Button btn_menu;
     boolean isPressed = true;
     public static int theme;
     FragmentManager supportFragmentManager;
     public static boolean NeedRecreate = false;
+    private String url;
+    private String urlHelper;
 
 
+    public static int time;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sPref = getPreferences(MODE_PRIVATE);
-        final SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        theme  = sp.getInt("THEME", R.style.AppThemeLight);
-        String  idbrand = sp.getString("bradnds", "");
+
+        theme  = sPref.getInt("THEME", R.style.AppThemeLight);
+        String  idbrand = sPref.getString("bradnds", "");
         setTheme(theme);
         setContentView(R.layout.activity_main);
 
@@ -70,7 +82,16 @@ public class MainActivity extends AppCompatActivity {
         right_backWheel_up = (ImageButton)findViewById(R.id.button_RZ_up);
         right_backWheel_down = (ImageButton)findViewById(R.id.Button_RZ_Down);
 
+
+        centr_front_up =(ImageButton)findViewById(R.id.);
+        centr_front_down = (ImageButton)findViewById(R.id.);
+
+        centr_back_up = (ImageButton)findViewById(R.id.);
+        centr_back_down =(ImageButton)findViewById(R.id.);
+
         //Все колеса
+        all_wheel_ap =(ImageButton)findViewById(R.id.);
+        all_wheel_down =  (ImageButton)findViewById(R.id.);
         //all_wheels_up = (View)findViewById(R.id.button_All_up);
 
         supportFragmentManager = getSupportFragmentManager();
@@ -132,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onDialogClickListener(int id) {
                        btn_menu.setText("");
                        btn_menu.setBackgroundResource(id);
-                       SharedPreferences.Editor editor = sp.edit();
+                       SharedPreferences.Editor editor = sPref.edit();
 
                        editor.putString("bradnds",  getResources().getResourceName(id));
                        editor.apply();
@@ -156,7 +177,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("FL&"+time+"&UP");
                     }
                 }
         );
@@ -165,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("FL&"+time+"&DOWN");
                     }
                 }
         );
@@ -174,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("BL&"+time+"&UP");
                     }
                 }
         );
@@ -183,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("BL&"+time+"&DOWN");
                     }
                 }
         );
@@ -195,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("FR&"+time+"&UP");
                     }
                 }
         );
@@ -204,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("FR&"+time+"&DOWN");
                     }
                 }
         );
@@ -213,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        SendCommand("BR&"+time+"&UP");
                     }
                 }
         );
@@ -222,20 +243,110 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        SendCommand("BR&"+time+"&DOWN");
                     }
+
                 }
         );
 
-        Log.d("TAG", "onResume: "+ getDensityName(this));
+
+
+
+
+
+
+
     }
 
 
+    public void SendCommand(String cmd)
+    {
+
+        if(!url.equals("")) {
+            urlHelper=url;
+            url += cmd;
+
+            Log.d("TAG", "SendCommand: " + url);
+            RequestQueue queue = Volley.newRequestQueue(this);
+            StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // Display the first 500 characters of the response string.
+                            Toast toast = Toast.makeText(getApplicationContext(),
+                                    response, Toast.LENGTH_SHORT);
+                            toast.show();
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                    Toast toast = Toast.makeText(getApplicationContext(),
+                            "Ошибка передачи: "+error, Toast.LENGTH_SHORT);
+                    toast.show();
+
+                    Log.d("TAG", "SendCommand: " + error);
+                }
+            });
+
+// Add the request to the RequestQueue.
+            queue.add(stringRequest);
+        }
+        else
+        {
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "Проверьте настройки подключения", Toast.LENGTH_SHORT);
+            toast.show();
+
+        }
+
+        url= urlHelper;
+
+
+    }
+
+  /*  Обозначение колес:
+    FL - Переднее левое
+    FR - Переднее правое
+    BL - Заднее левое
+    BR - Заднее правое
+    F - Оба передних колеса
+    B - оба задних колеса
+    FB - Все колеса
+
+    10 - Время в секундах
+
+    UP - подъем машины
+    DOWN - Спуск машины
+
+    Start - начать работу при зажимании кнопки без настройки времени
+    Stop - окончить работ при отпускании кнопки без настройки времени
+
+    в ответ отправляю команду +OK.
+
+            Примеры:
+    FRT20SUP - поднять переднее правое колесо. время работы 20 сек
+    FRT20SUPOK - ответ на команду
+
+    FBT10SDOWN -  опустить все колеса. время работы 10 сек
+    FBT10SDOWNОК - ответ на команду
+
+    BUPStart - поднимать оба задних колеса по нажатию на кнопку
+    BUPStartОК - ответ на команду
+
+    BUPStop - закончить поднимать оба задних колеса по отжатии кнопки
+    BUPStopОК - ответ на команду
+*/
     @Override
     protected void onResume() {
         super.onResume();
 
-        Log.d("TAG", "onResume: "+ Build.VERSION.SDK_INT);
-        if(NeedRecreate)
+         String u = sPref.getString("ip_address", "");
+         int port=  sPref.getInt("port", 80);
+         url= "http://"+ u + ":"+ String.valueOf(port) + "?";
+
+        Log.d("TAG", "Onresume: " + NeedRecreate);
+         if(NeedRecreate)
         {
             recreate();
             NeedRecreate =false;
