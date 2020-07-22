@@ -1,14 +1,11 @@
 package com.borisem.borisemair;
 
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -54,25 +51,19 @@ public class Settings extends AppCompatActivity {
         Log.d("TAG", "onCreate: IP "+u);
 
         int port=  sPref.getInt("port", 80);
-try {
-    assert u != null;
-    String[] ips = u.split("\\.");
+        try {
+            assert u != null;
+            String[] ips = u.split("\\.");
 
-    et1.setText(ips[0]);
-    et2.setText(ips[1]);
-    et3.setText(ips[2]);
-    et4.setText(ips[3]);
+            et1.setText(ips[0]);
+            et2.setText(ips[1]);
+            et3.setText(ips[2]);
+            et4.setText(ips[3]);
 
-    etp.setText(String.valueOf(port));
+            etp.setText(String.valueOf(port));
+        }
 
-}
-catch (Exception e)
-{
-
-
-}
-
-
+        catch (Exception e){ }
 
         chooseSec = (Spinner)findViewById(R.id.whatTime);
         ArrayList<String> seconds = new ArrayList<>();
@@ -83,7 +74,7 @@ catch (Exception e)
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.adapter, seconds);
         chooseSec.setAdapter(adapter1);
 
-    time=sPref.getInt("time", 0);
+        time=sPref.getInt("time", 0);
         Log.d("TAG", "onCreate: IPs "+time);
         switch (time)
         {
@@ -102,8 +93,6 @@ catch (Exception e)
             case 15:
                 chooseSec.setSelection(3);
                 break;
-
-
         }
 
 
@@ -119,6 +108,7 @@ catch (Exception e)
                 NeedRecreate = true;
                 break;
         }
+
         chooseSec.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -127,31 +117,20 @@ catch (Exception e)
                     case 0:
                         time =0;
                         editor.putInt("time", 0).apply();
-
-
                         break;
                     case 1:
                         time =5;
                         editor.putInt("time", 5).apply();
                         break;
-
                     case 2:
                         time =10;
                         editor.putInt("time", 10).apply();
-
                         break;
-
-
                     case 3:
                         time =15;
                         editor.putInt("time", 15).apply();
-
                         break;
-
-
                 }
-
-
             }
 
             @Override

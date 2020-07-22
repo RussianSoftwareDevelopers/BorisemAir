@@ -82,17 +82,17 @@ public class MainActivity extends AppCompatActivity {
         right_backWheel_up = (ImageButton)findViewById(R.id.button_RZ_up);
         right_backWheel_down = (ImageButton)findViewById(R.id.Button_RZ_Down);
 
+        //Передняя и задняя оси
+        centr_front_up =(ImageButton)findViewById(R.id.Button_P_Up);
+        centr_front_down = (ImageButton)findViewById(R.id.Button_P_Down);
 
-        centr_front_up =(ImageButton)findViewById(R.id.);
-        centr_front_down = (ImageButton)findViewById(R.id.);
-
-        centr_back_up = (ImageButton)findViewById(R.id.);
-        centr_back_down =(ImageButton)findViewById(R.id.);
+        centr_back_up = (ImageButton)findViewById(R.id.Button_Z_Up);
+        centr_back_down =(ImageButton)findViewById(R.id.Button_Z_Down);
 
         //Все колеса
-        all_wheel_ap =(ImageButton)findViewById(R.id.);
-        all_wheel_down =  (ImageButton)findViewById(R.id.);
-        //all_wheels_up = (View)findViewById(R.id.button_All_up);
+        all_wheel_ap =(ImageButton)findViewById(R.id.centr_btn);
+        all_wheel_down =  (ImageButton)findViewById(R.id.centr_btn);
+
 
         supportFragmentManager = getSupportFragmentManager();
 
@@ -251,11 +251,66 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        //Передняя ось
+        centr_front_up.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("F&"+time+"&UP");
+                    }
+                }
+        );
+
+        centr_front_down.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("F&"+time+"&DOWN");
+                    }
+                }
+        );
 
 
+        //Задняя ось
+        centr_back_up.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("B&"+time+"&UP");
+                    }
+                }
+        );
+
+        centr_back_down.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("B&"+time+"&DOWN");
+                    }
+
+                }
+        );
 
 
+        //Все колеса
+        all_wheel_ap.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("FB&"+time+"&UP");
+                    }
+                }
+        );
 
+        all_wheel_down.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        SendCommand("FB&"+time+"&DOWN");
+                    }
+
+                }
+        );
     }
 
 
@@ -345,7 +400,7 @@ public class MainActivity extends AppCompatActivity {
          int port=  sPref.getInt("port", 80);
          url= "http://"+ u + ":"+ String.valueOf(port) + "?";
 
-        Log.d("TAG", "Onresume: " + NeedRecreate);
+         Log.d("TAG", "Onresume: " + NeedRecreate);
          if(NeedRecreate)
         {
             recreate();
