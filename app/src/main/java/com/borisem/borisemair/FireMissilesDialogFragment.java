@@ -50,8 +50,14 @@ public class FireMissilesDialogFragment extends DialogFragment {
         adapterBrands = new AdapterBrands(view.getContext(), integersBrands, new AdapterBrands.OncheckBrand() {
             @Override
             public void OnCheckBrandLisner(int id) {
-                onClick.onDialogClickListener(id);
-                dismiss();
+                try {
+                    onClick.onDialogClickListener(id);
+                    dismiss();
+                }
+                catch (Exception e)
+                {
+                    dismiss();
+                }
             }
         });
 

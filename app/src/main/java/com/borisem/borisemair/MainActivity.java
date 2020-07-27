@@ -21,7 +21,6 @@ import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static int time;
 
-    TextView leftBottomWheelTxt, rightBottomWheelTxt, leftTopWheelTxt, rightTopWheelTxt;
+    TextView leftBottomWheelTxt, rightBottomWheelTxt, rightTopWheelTxt, leftTopWheelTxt, textViewCentr;
 
 
 
@@ -93,10 +92,16 @@ public class MainActivity extends AppCompatActivity {
 
         leftBottomWheelTxt  = (TextView) findViewById(R.id.textLeftBottomWheel);
         rightBottomWheelTxt = (TextView) findViewById(R.id.textRightBottomWheel);
-        leftTopWheelTxt = (TextView) findViewById(R.id.textLeftTopWheel);
-        rightTopWheelTxt = (TextView)findViewById(R.id.textRighTopWheel);
+        rightTopWheelTxt = (TextView) findViewById(R.id.textLeftTopWheel);
+        leftTopWheelTxt = (TextView)findViewById(R.id.textRighTopWheel);
 
         supportFragmentManager = getSupportFragmentManager();
+
+
+        time=sPref.getInt("time", 0);
+
+        textViewCentr=(TextView)findViewById(R.id.textView6);
+
 
         centr_btn.setOnTouchListener(new View.OnTouchListener() {
             @SuppressLint("ClickableViewAccessibility")
@@ -120,7 +125,9 @@ public class MainActivity extends AppCompatActivity {
 
                 if(event.getY() > (v.getHeight()/2)) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            { SendCommand("FB&"+time+"&DOWM");
+                            {
+
+                                SendCommand("FB&"+time+"&DOWM");
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
                                 }
@@ -133,6 +140,18 @@ public class MainActivity extends AppCompatActivity {
 
 
                         v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
+                        if(time==0)
+                        {
+                            if(event.getY() < (v.getHeight()/2)) {
+                                SendCommand("FB&" + time + "&UP&STOP");
+                            }
+                            else  if(event.getY() > (v.getHeight()/2))
+                            {
+                                SendCommand("FB&" + time + "&DOWN&STOP");
+
+                            }
+                        }
+
                     }
                 }
                 return false;
@@ -144,8 +163,14 @@ public class MainActivity extends AppCompatActivity {
         btn_menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 Intent intent = new Intent(getApplicationContext(),Settings.class);
                 startActivity(intent);
+                v.setOnClickListener(null);
+
+
+
             }
         });
 
@@ -172,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
                 schermpje.setArguments(bundle);
 
                 schermpje.show(supportFragmentManager, "mydialog");
+
                 return false;
 
             }
@@ -179,87 +205,169 @@ public class MainActivity extends AppCompatActivity {
 
         //Методы
         //Левые колеса вверх/вниз
-        left_frontWheel_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FL&"+time+"&UP");
-                    }
+       left_frontWheel_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("FL&0&UP");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("FL&0&UP&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        left_frontWheel_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FL&"+time+"&DOWN");
-                    }
+
+
+
+
+        left_frontWheel_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("FL&0&DOWN");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("FL&0&DOWN&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        left_backWheel_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("BL&"+time+"&UP");
-                    }
+
+        left_backWheel_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("BL&0&UP");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("BL&0&UP&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        left_backWheel_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("BL&"+time+"&DOWN");
-                    }
+
+
+        left_backWheel_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("BL&0&DOWN");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("BL&0&DOWN&STOP");
                 }
-        );
-
-
+                return true;
+            }
+        });
 
 
 
 
 
         //Правые колеса вверх/вниз
-        right_frontWheel_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FR&"+time+"&UP");
-                    }
+
+        right_frontWheel_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("FR&0&UP");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("FR&0&UP&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        right_frontWheel_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FR&"+time+"&DOWN");
-                    }
+
+
+
+
+        right_frontWheel_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("FR&0&DOWN");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("FR&0&DOWN&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        right_backWheel_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("BR&"+time+"&UP");
-                    }
+
+
+
+        right_backWheel_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("BR&0&UP");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("BR&0&UP&STOP");
                 }
-        );
+                return true;
+            }
+        });
 
-        right_backWheel_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("BR&"+time+"&DOWN");
-                    }
+        right_backWheel_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("BR&0&DOWN");
 
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("BR&0&DOWN&STOP");
                 }
-        );
-
-
+                return true;
+            }
+        });
 
          //Передняя ось
 
@@ -273,11 +381,11 @@ public class MainActivity extends AppCompatActivity {
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
-                    SendCommand("F&UP&Start");
+                    SendCommand("F&UP");
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
-                    SendCommand("F&UP&Stop");
+                    SendCommand("F&UP&STOP");
                 }
                 return true;
             }
@@ -293,10 +401,10 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
-                    SendCommand("F&DOWN&Start");
+                    SendCommand("F&DOWN");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
-                    SendCommand("F&DOWN&Stop");
+                    SendCommand("F&DOWN&STOP");
                 }
                 return true;
             }
@@ -312,9 +420,9 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
-                    SendCommand("B&UP&Start");
+                    SendCommand("B&UP");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
-                    SendCommand("B&UP&Stop");
+                    SendCommand("B&UP&STOP");
                     v.setPressed(false);
                 }
                 return true;
@@ -331,10 +439,10 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
-                    SendCommand("B&DOWN&Start");
+                    SendCommand("B&DOWN");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
-                    SendCommand("B&DOWN&Stop");
+                    SendCommand("B&DOWN&STOP");
                 }
                 return true;
             }
@@ -349,7 +457,7 @@ public class MainActivity extends AppCompatActivity {
     public void SendCommand(String cmd)
     {
 
-        ReloadStaus(cmd);
+        ParseCmdResponse(cmd);
 
         if(!url.equals("")) {
             urlHelper=url;
@@ -368,7 +476,7 @@ public class MainActivity extends AppCompatActivity {
                                     response, Toast.LENGTH_SHORT);
                             toast.show();
                             ParseCmdResponse(response);
-                            Log.d("TAG", "response: " + response);
+
 
                         }
                     }, new Response.ErrorListener() {
@@ -387,7 +495,7 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
 
-        Log.d("TAG", "SendCommand: ."+stringRequest.getTimeoutMs());
+
 // Add the request to the RequestQueue.
             queue.add(stringRequest);
         }
@@ -404,15 +512,62 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
 
     }
 
-    private void ReloadStaus(String cmd) {
+    private void ReloadStaus(String cmdd) {
 
-        if(cmd.contains("BL"))
+        String cmd = cmdd.split("&")[0];
+
+
+        if(cmd.equals("F"))
+        {
+            rightTopWheelTxt.setText("Start");
+            leftTopWheelTxt.setText("Start");
+
+        }
+        else if(cmd.equals("B"))
+        {
+            rightBottomWheelTxt.setText("Start");
+            leftBottomWheelTxt.setText("Start");
+
+
+
+        }
+        else  if(cmd.equals("BL"))
         {
 
             leftBottomWheelTxt.setText("Start");
 
 
         }
+        else  if(cmd.equals("BR"))
+        {
+
+            rightBottomWheelTxt.setText("Start");
+
+
+        }
+
+        else  if(cmd.equals("FR"))
+        {
+
+            rightTopWheelTxt.setText("Start");
+
+
+        }
+        else  if(cmd.equals("FL"))
+        {
+
+            leftTopWheelTxt.setText("Start");
+
+
+        }
+        else if(cmd.equals("FB"))
+        {
+
+            textViewCentr.setText("Start");
+
+
+        }
+
 
 
 
@@ -420,17 +575,19 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
 
     private void ParseCmdResponse(String response) {
 
-
+            String[] info = response.split("&");
             String whichwheel = response.split("&")[0];
+
+            if(info.length)
 
             switch (whichwheel)
             {
 
                 case "FL":
-                    leftTopWheelTxt.setText("Ok");
+                    rightTopWheelTxt.setText("Ok");
                     break;
                 case "FR":
-                    rightTopWheelTxt.setText("Ok");
+                    leftTopWheelTxt.setText("Ok");
                     break;
                 case "BL":
                     leftBottomWheelTxt.setText("Ok");

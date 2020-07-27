@@ -197,6 +197,7 @@ public class Settings extends AppCompatActivity {
     public void Set(View view) {
         if (view.getId() == R.id.applyButton) {
             if (IpCheck()) {
+                view.setOnClickListener(null);
                 if(ip_address!=null&port!=0)
                 {
                     SharedPreferences.Editor sE = sPref.edit();
