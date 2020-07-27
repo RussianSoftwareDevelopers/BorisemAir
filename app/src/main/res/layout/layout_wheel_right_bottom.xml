@@ -29,7 +29,7 @@
         style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView2"
+        android:layout_above="@+id/textRightBottomWheel"
         android:background="@drawable/text_info_passive"
         android:text="@string/textinfobarRight"
 
@@ -37,7 +37,7 @@
 
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textRightBottomWheel"
         style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,6 +57,6 @@
         style="@style/While"
 
         android:text="@string/textinfobarBack"
-        android:layout_below="@id/textView2" />
+        android:layout_below="@id/textRightBottomWheel" />
 
 </RelativeLayout>

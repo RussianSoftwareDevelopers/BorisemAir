@@ -10,7 +10,7 @@
         android:state_pressed="true"/>
 
     <item
-        android:drawable="@drawable/button_main_shape_up"
+        android:drawable="@drawable/button_main_shape_pressed_up"
         android:state_focused="true"
         android:state_pressed="false"/>
     <item

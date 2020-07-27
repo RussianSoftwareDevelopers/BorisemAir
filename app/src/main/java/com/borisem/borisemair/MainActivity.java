@@ -2,37 +2,29 @@ package com.borisem.borisemair;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.RectF;
 import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public static   SharedPreferences sPref;
@@ -49,6 +41,11 @@ public class MainActivity extends AppCompatActivity {
 
 
     public static int time;
+
+    TextView leftBottomWheelTxt, rightBottomWheelTxt, leftTopWheelTxt, rightTopWheelTxt;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,6 +91,11 @@ public class MainActivity extends AppCompatActivity {
         all_wheel_down =  (ImageButton)findViewById(R.id.centr_btn);
 
 
+        leftBottomWheelTxt  = (TextView) findViewById(R.id.textLeftBottomWheel);
+        rightBottomWheelTxt = (TextView) findViewById(R.id.textRightBottomWheel);
+        leftTopWheelTxt = (TextView) findViewById(R.id.textLeftTopWheel);
+        rightTopWheelTxt = (TextView)findViewById(R.id.textRighTopWheel);
+
         supportFragmentManager = getSupportFragmentManager();
 
         centr_btn.setOnTouchListener(new View.OnTouchListener() {
@@ -107,6 +109,8 @@ public class MainActivity extends AppCompatActivity {
            if(event.getY() < (v.getHeight()/2)) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         {
+
+                            SendCommand("FB&"+time+"&UP");
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color_up));
                             }
@@ -116,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(event.getY() > (v.getHeight()/2)) {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                            {
+                            { SendCommand("FB&"+time+"&DOWM");
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
                                 }
@@ -126,6 +130,8 @@ public class MainActivity extends AppCompatActivity {
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+
                         v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
                     }
                 }
@@ -211,6 +217,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         //Правые колеса вверх/вниз
         right_frontWheel_up.setOnClickListener(
                 new View.OnClickListener() {
@@ -251,78 +261,104 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        //Передняя ось
-        centr_front_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("F&"+time+"&UP");
-                    }
-                }
-        );
+         //Передняя ось
 
-        centr_front_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("F&"+time+"&DOWN");
-                    }
+
+
+        centr_front_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
+                    SendCommand("F&UP&Start");
+
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("F&UP&Stop");
                 }
-        );
+                return true;
+            }
+        });
+
+
+
+
+        centr_front_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    SendCommand("F&DOWN&Start");
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("F&DOWN&Stop");
+                }
+                return true;
+            }
+        });
 
 
         //Задняя ось
-        centr_back_up.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("B&"+time+"&UP");
-                    }
+
+        centr_back_up.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    SendCommand("B&UP&Start");
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    SendCommand("B&UP&Stop");
+                    v.setPressed(false);
                 }
-        );
+                return true;
+            }
+        });
 
-        centr_back_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("B&"+time+"&DOWN");
-                    }
 
+
+
+        centr_back_down.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                int action = event.getAction();
+                if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
+                    v.setPressed(true);
+                    SendCommand("B&DOWN&Start");
+                } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    v.setPressed(false);
+                    SendCommand("B&DOWN&Stop");
                 }
-        );
+                return true;
+            }
+        });
 
 
-        //Все колеса
-        all_wheel_ap.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FB&"+time+"&UP");
-                    }
-                }
-        );
 
-        all_wheel_down.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        SendCommand("FB&"+time+"&DOWN");
-                    }
 
-                }
-        );
     }
 
 
     public void SendCommand(String cmd)
     {
 
+        ReloadStaus(cmd);
+
         if(!url.equals("")) {
             urlHelper=url;
             url += cmd;
 
-            Log.d("TAG", "SendCommand: " + url);
-            RequestQueue queue = Volley.newRequestQueue(this);
+
+            RequestQueue queue = Volley.newRequestQueue(this );
+
+
             StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                     new Response.Listener<String>() {
                         @Override
@@ -331,6 +367,9 @@ public class MainActivity extends AppCompatActivity {
                             Toast toast = Toast.makeText(getApplicationContext(),
                                     response, Toast.LENGTH_SHORT);
                             toast.show();
+                            ParseCmdResponse(response);
+                            Log.d("TAG", "response: " + response);
+
                         }
                     }, new Response.ErrorListener() {
                 @Override
@@ -339,11 +378,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(),
                             "Ошибка передачи: "+error, Toast.LENGTH_SHORT);
                     toast.show();
+                    Log.d("TAG", "Error: " + error.getMessage());
 
-                    Log.d("TAG", "SendCommand: " + error);
                 }
             });
+stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+        DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+        DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
+
+        Log.d("TAG", "SendCommand: ."+stringRequest.getTimeoutMs());
 // Add the request to the RequestQueue.
             queue.add(stringRequest);
         }
@@ -360,38 +404,86 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-  /*  Обозначение колес:
-    FL - Переднее левое
-    FR - Переднее правое
-    BL - Заднее левое
-    BR - Заднее правое
-    F - Оба передних колеса
-    B - оба задних колеса
-    FB - Все колеса
+    private void ReloadStaus(String cmd) {
 
-    10 - Время в секундах
+        if(cmd.contains("BL"))
+        {
 
-    UP - подъем машины
-    DOWN - Спуск машины
+            leftBottomWheelTxt.setText("Start");
 
-    Start - начать работу при зажимании кнопки без настройки времени
-    Stop - окончить работ при отпускании кнопки без настройки времени
 
-    в ответ отправляю команду +OK.
+        }
 
-            Примеры:
-    FRT20SUP - поднять переднее правое колесо. время работы 20 сек
-    FRT20SUPOK - ответ на команду
 
-    FBT10SDOWN -  опустить все колеса. время работы 10 сек
-    FBT10SDOWNОК - ответ на команду
 
-    BUPStart - поднимать оба задних колеса по нажатию на кнопку
-    BUPStartОК - ответ на команду
+    }
 
-    BUPStop - закончить поднимать оба задних колеса по отжатии кнопки
-    BUPStopОК - ответ на команду
-*/
+    private void ParseCmdResponse(String response) {
+
+
+            String whichwheel = response.split("&")[0];
+
+            switch (whichwheel)
+            {
+
+                case "FL":
+                    leftTopWheelTxt.setText("Ok");
+                    break;
+                case "FR":
+                    rightTopWheelTxt.setText("Ok");
+                    break;
+                case "BL":
+                    leftBottomWheelTxt.setText("Ok");
+                    break;
+                case "BR":
+                    rightBottomWheelTxt.setText("Ok");
+                    break;
+            }
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+    /*  Обозначение колес:
+      FL - Переднее левое
+      FR - Переднее правое
+      BL - Заднее левое
+      BR - Заднее правое
+      F - Оба передних колеса
+      B - оба задних колеса
+      FB - Все колеса
+
+      10 - Время в секундах
+
+      UP - подъем машины
+      DOWN - Спуск машины
+
+      Start - начать работу при зажимании кнопки без настройки времени
+      Stop - окончить работ при отпускании кнопки без настройки времени
+
+      в ответ отправляю команду +OK.
+
+              Примеры:
+      FRT20SUP - поднять переднее правое колесо. время работы 20 сек
+      FRT20SUPOK - ответ на команду
+
+      FBT10SDOWN -  опустить все колеса. время работы 10 сек
+      FBT10SDOWNОК - ответ на команду
+
+      BUPStart - поднимать оба задних колеса по нажатию на кнопку
+      BUPStartОК - ответ на команду
+
+      BUPStop - закончить поднимать оба задних колеса по отжатии кнопки
+      BUPStopОК - ответ на команду
+  */
     @Override
     protected void onResume() {
         super.onResume();
