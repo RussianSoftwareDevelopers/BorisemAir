@@ -2,15 +2,15 @@
 <resources>
 
 
-    <dimen name="sizecentrbtn">140dp</dimen>
-    <dimen name="sizecentrsmallbtn">70dp</dimen>
+    <dimen name="sizecentrbtn">200dp</dimen>
+    <dimen name="sizecentrsmallbtn">100dp</dimen>
     <dimen name="sizeinfopanel">340dip</dimen>
 
-    <dimen name="sizearrowbtnwidth">40dip</dimen>
-    <dimen name="sizearrowbtnheight">140dip</dimen>
+    <dimen name="sizearrowbtnwidth">60dip</dimen>
+    <dimen name="sizearrowbtnheight">200dip</dimen>
 
-    <dimen name="sizearrowbtnwidthcentr">140dip</dimen>
-    <dimen name="sizearrowbtnheightcentr">60dip</dimen>
+    <dimen name="sizearrowbtnwidthcentr">160dip</dimen>
+    <dimen name="sizearrowbtnheightcentr">80dip</dimen>
 
 
     <dimen name="stroke">2dip</dimen>
@@ -20,7 +20,7 @@
 
     <dimen name="paddingarrow">18dp</dimen>
     <dimen name="paddingarrowdown">1dp</dimen>
-    <dimen name="paddingarrowcentr">105dp</dimen>
+    <dimen name="paddingarrowcentr">150dp</dimen>
     <string name="borisem">Borisem</string>
 
 

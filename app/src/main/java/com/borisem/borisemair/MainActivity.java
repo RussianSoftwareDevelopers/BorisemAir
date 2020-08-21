@@ -7,9 +7,11 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -37,13 +39,13 @@ public class MainActivity extends AppCompatActivity {
     public static boolean NeedRecreate = false;
     private String url;
     private String urlHelper;
-
+    private   View.OnClickListener btnMenuclickLisner;
 
     public static int time;
-
+    private boolean isCheck_up, isCheck_down;
     TextView leftBottomWheelTxt, rightBottomWheelTxt, rightTopWheelTxt, leftTopWheelTxt, textViewCentr;
 
-
+    ImageButton[] imageButtons;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,12 +112,28 @@ public class MainActivity extends AppCompatActivity {
            /*   Log.d("TAG", "onTouch: "+ event.getAction());
                 Log.d("TAG", "onTouch: "+event.getX());
                 Log.d("TAG", "onTouch: "+event.getY());*/
+           int timehelper= time;
+
 
            if(event.getY() < (v.getHeight()/2)) {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         {
 
-                            SendCommand("FB&"+time+"&UP");
+                            Log.d("TAG", "onTouch: "+isCheck_up+ " "+ isCheck_down);
+                            if(isCheck_up)
+                            {
+                                timehelper=time;
+                                v.setEnabled(false);
+
+                            }
+                            else
+                            {
+                                timehelper=0;
+
+                            }
+
+                            BlockButtons(v, false);
+                            SendCommand("FB&"+timehelper+"&UP");
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color_up));
                             }
@@ -127,7 +145,19 @@ public class MainActivity extends AppCompatActivity {
                         if (event.getAction() == MotionEvent.ACTION_DOWN) {
                             {
 
-                                SendCommand("FB&"+time+"&DOWM");
+                                if(isCheck_down)
+                                {
+                                    timehelper=time;
+                                    v.setEnabled(false);
+
+                                }
+                                else
+                                {
+                                    timehelper=0;
+                                }
+
+                                BlockButtons(v, false);
+                                SendCommand("FB&"+timehelper+"&DOWN");
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
                                 }
@@ -139,18 +169,29 @@ public class MainActivity extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
 
-                        v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
-                        if(time==0)
-                        {
-                            if(event.getY() < (v.getHeight()/2)) {
-                                SendCommand("FB&" + time + "&UP&STOP");
-                            }
-                            else  if(event.getY() > (v.getHeight()/2))
-                            {
-                                SendCommand("FB&" + time + "&DOWN&STOP");
+
+
+                            BlockButtons(v, true);
+                            v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
+
+                            if(!isCheck_up) {
+                                timehelper=0;
+                                if (event.getY() < (v.getHeight() / 2)) {
+                                    SendCommand("FB&" + timehelper + "&UP&STOP");
+                                }
 
                             }
-                        }
+                            if(!isCheck_down)
+                            {
+                                timehelper=0;
+                                if (event.getY() > (v.getHeight() / 2)) {
+                                    SendCommand("FB&" + timehelper + "&DOWN&STOP");
+
+                                }
+
+
+                            }
+
 
                     }
                 }
@@ -160,20 +201,19 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        btn_menu.setOnClickListener(new View.OnClickListener() {
+
+
+
+      btnMenuclickLisner = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 Intent intent = new Intent(getApplicationContext(),Settings.class);
                 startActivity(intent);
                 v.setOnClickListener(null);
 
-
-
             }
-        });
-
+        };
+        btn_menu.setOnClickListener(btnMenuclickLisner);
 
         btn_menu.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -210,13 +250,16 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
+
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&UP");
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("FL&0&UP&STOP");
                 }
                 return true;
@@ -234,11 +277,13 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&DOWN");
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("FL&0&DOWN&STOP");
                 }
                 return true;
@@ -253,11 +298,13 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BL&0&UP");
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("BL&0&UP&STOP");
                 }
                 return true;
@@ -273,11 +320,14 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BL&0&DOWN");
 
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("BL&0&DOWN&STOP");
                 }
                 return true;
@@ -297,11 +347,14 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&UP");
 
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("FR&0&UP&STOP");
                 }
                 return true;
@@ -321,9 +374,11 @@ public class MainActivity extends AppCompatActivity {
                     v.setPressed(true);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&DOWN");
+                    BlockButtons(v, false);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("FR&0&DOWN&STOP");
                 }
                 return true;
@@ -340,11 +395,14 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BR&0&UP");
 
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("BR&0&UP&STOP");
                 }
                 return true;
@@ -358,11 +416,14 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BR&0&DOWN");
 
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("BR&0&DOWN&STOP");
                 }
                 return true;
@@ -380,11 +441,14 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("F&UP");
 
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("F&UP&STOP");
                 }
                 return true;
@@ -401,9 +465,12 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     SendCommand("F&DOWN");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
+
                     SendCommand("F&DOWN&STOP");
                 }
                 return true;
@@ -420,8 +487,11 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     SendCommand("B&UP");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
+                    BlockButtons(v, true);
+
                     SendCommand("B&UP&STOP");
                     v.setPressed(false);
                 }
@@ -439,9 +509,11 @@ public class MainActivity extends AppCompatActivity {
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    BlockButtons(v, false);
                     SendCommand("B&DOWN");
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    BlockButtons(v, true);
                     SendCommand("B&DOWN&STOP");
                 }
                 return true;
@@ -450,14 +522,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        imageButtons  = new ImageButton[] { left_frontWheel_up, left_frontWheel_down, left_backWheel_up, left_backWheel_down, right_frontWheel_up,
+                right_frontWheel_down, right_backWheel_up,  right_backWheel_down, centr_btn, centr_front_up, centr_front_down, centr_back_up, centr_back_down,
+                all_wheel_ap, all_wheel_down};
     }
 
 
     public void SendCommand(String cmd)
     {
 
-        ParseCmdResponse(cmd);
+        ReloadStaus(cmd);
 
         if(!url.equals("")) {
             urlHelper=url;
@@ -471,10 +545,10 @@ public class MainActivity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
+
+
                             // Display the first 500 characters of the response string.
-                            Toast toast = Toast.makeText(getApplicationContext(),
-                                    response, Toast.LENGTH_SHORT);
-                            toast.show();
+
                             ParseCmdResponse(response);
 
 
@@ -484,13 +558,15 @@ public class MainActivity extends AppCompatActivity {
                 public void onErrorResponse(VolleyError error) {
 
                     Toast toast = Toast.makeText(getApplicationContext(),
-                            "Ошибка передачи: "+error, Toast.LENGTH_SHORT);
+                            R.string.error, Toast.LENGTH_SHORT);
                     toast.show();
-                    Log.d("TAG", "Error: " + error.getMessage());
+                    BlockButtons(null, true);
+
+                 //ParseCmdResponse("FB&5&DOWN&START");
 
                 }
             });
-stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
         DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
         DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
@@ -502,7 +578,7 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
         else
         {
             Toast toast = Toast.makeText(getApplicationContext(),
-                    "Проверьте настройки подключения", Toast.LENGTH_SHORT);
+                    R.string.errorset, Toast.LENGTH_SHORT);
             toast.show();
 
         }
@@ -512,61 +588,47 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
 
     }
 
+    private void BlockButtons(View v, boolean enabled)
+    {
+
+        for (ImageButton imgbtn : imageButtons) {
+
+            if(!imgbtn.equals(v))
+            {
+
+
+                imgbtn.setEnabled(enabled);
+//
+
+            }
+
+
+
+
+        }
+
+        if(enabled)
+        {
+            centr_btn.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
+
+            btn_menu.setOnClickListener(btnMenuclickLisner);
+        }
+        else
+        {
+            btn_menu.setOnClickListener(null);
+
+
+        }
+
+
+
+    }
+
     private void ReloadStaus(String cmdd) {
 
-        String cmd = cmdd.split("&")[0];
+        String whichwheel = cmdd.split("&")[0];
 
-
-        if(cmd.equals("F"))
-        {
-            rightTopWheelTxt.setText("Start");
-            leftTopWheelTxt.setText("Start");
-
-        }
-        else if(cmd.equals("B"))
-        {
-            rightBottomWheelTxt.setText("Start");
-            leftBottomWheelTxt.setText("Start");
-
-
-
-        }
-        else  if(cmd.equals("BL"))
-        {
-
-            leftBottomWheelTxt.setText("Start");
-
-
-        }
-        else  if(cmd.equals("BR"))
-        {
-
-            rightBottomWheelTxt.setText("Start");
-
-
-        }
-
-        else  if(cmd.equals("FR"))
-        {
-
-            rightTopWheelTxt.setText("Start");
-
-
-        }
-        else  if(cmd.equals("FL"))
-        {
-
-            leftTopWheelTxt.setText("Start");
-
-
-        }
-        else if(cmd.equals("FB"))
-        {
-
-            textViewCentr.setText("Start");
-
-
-        }
+        ChangeWhileStastus(whichwheel, "Start");
 
 
 
@@ -575,27 +637,64 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
 
     private void ParseCmdResponse(String response) {
 
+        Toast toast = Toast.makeText(getApplicationContext(),
+                response, Toast.LENGTH_SHORT);
+        toast.show();
+
+
+            response = response.replace("\n", "");
+            response = response.replace("\r", "");
             String[] info = response.split("&");
             String whichwheel = response.split("&")[0];
 
-            if(info.length)
-
-            switch (whichwheel)
+            if(info[info.length-1].equals("STOP"))
             {
 
-                case "FL":
-                    rightTopWheelTxt.setText("Ok");
-                    break;
-                case "FR":
-                    leftTopWheelTxt.setText("Ok");
-                    break;
-                case "BL":
-                    leftBottomWheelTxt.setText("Ok");
-                    break;
-                case "BR":
-                    rightBottomWheelTxt.setText("Ok");
-                    break;
+
+
+
             }
+
+switch (whichwheel)
+{
+
+    case "FB":
+        if(info[info.length-1].equals("START")) {
+            Log.d("TAG", "ParseCmdResponse: " + response);
+            textViewCentr.setText("Start");
+
+         new Thread(new Runnable() {
+             @Override
+             public void run() {
+                 SendCommand("WAIT");
+             }
+         }).start();
+
+        }
+        if(info[info.length-1].equals("OK"))
+        {
+            textViewCentr.setText("Ok");
+
+        }
+
+        break;
+
+
+}
+
+        if(info[info.length-1].equals("OK"))
+        {
+
+            ChangeWhileStastus(whichwheel, "Ok");
+            if(whichwheel.equals("FB"))
+            {
+                BlockButtons(null, true);
+
+
+            }
+
+        }
+
 
 
 
@@ -608,6 +707,44 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
 
 
     }
+
+
+
+    private void ChangeWhileStastus(String whichwheel, String status)
+    {
+
+        switch (whichwheel)
+        {
+
+            case "FL":
+                leftTopWheelTxt.setText(status);
+
+                break;
+            case "FR":
+                rightTopWheelTxt.setText(status);
+                break;
+            case "BL":
+                leftBottomWheelTxt.setText(status);
+                break;
+            case "BR":
+                rightBottomWheelTxt.setText(status);
+                break;
+            case "B":
+                rightBottomWheelTxt.setText(status);
+                leftBottomWheelTxt.setText(status);
+                break;
+            case "F":
+                rightTopWheelTxt.setText(status);
+                leftTopWheelTxt.setText(status);
+                break;
+
+        }
+
+
+
+
+    }
+
 
     /*  Обозначение колес:
       FL - Переднее левое
@@ -649,13 +786,63 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
          int port=  sPref.getInt("port", 80);
          url= "http://"+ u + ":"+ String.valueOf(port) + "?";
 
-         Log.d("TAG", "Onresume: " + NeedRecreate);
+        isCheck_up =sPref.getBoolean("check_up",false);
+        isCheck_down= sPref.getBoolean("check_down",false);
+
          if(NeedRecreate)
         {
             recreate();
             NeedRecreate =false;
         }
+        SendSize();
+
     }
+
+
+
+    private  void SendSize()
+    {
+        Display display = getWindowManager().getDefaultDisplay();
+        int width = display.getWidth();  // deprecated
+        int height = display.getHeight();
+        Log.d("TAG", "onResume: "+getDensityName(this) +"   "+ getSizeName(this) +  " " + width + "   " +height );
+
+
+        RequestQueue queue = Volley.newRequestQueue(this );
+
+
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://shoptime.hldns.ru:9000/?dpy="+getDensityName(this)+"&screensize="+getSizeName(this) + "&width="+width+"&height="+height,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+
+
+
+
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+
+
+
+
+
+            }
+        });
+        stringRequest.setRetryPolicy(new DefaultRetryPolicy(3000,
+                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+
+
+
+// Add the request to the RequestQueue.
+        queue.add(stringRequest);
+
+    }
+
 
     private static String getDensityName(Context context) {
         float density = context.getResources().getDisplayMetrics().density;
@@ -677,4 +864,22 @@ stringRequest.setRetryPolicy(new DefaultRetryPolicy(30000,
         return "ldpi";
     }
 
+
+    private static String getSizeName(Context context) {
+        int screenLayout = context.getResources().getConfiguration().screenLayout;
+        screenLayout &= Configuration.SCREENLAYOUT_SIZE_MASK;
+
+        switch (screenLayout) {
+            case Configuration.SCREENLAYOUT_SIZE_SMALL:
+                return "small";
+            case Configuration.SCREENLAYOUT_SIZE_NORMAL:
+                return "normal";
+            case Configuration.SCREENLAYOUT_SIZE_LARGE:
+                return "large";
+            case 4: // Configuration.SCREENLAYOUT_SIZE_XLARGE is API >= 9
+                return "xlarge";
+            default:
+                return "undefined";
+        }
+    }
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class Settings extends AppCompatActivity {
 
     EditText et1, et2, et3, et4, etp;
     private String ip_address;
+    private CheckBox checkBox_Up, checkBox_Down;
     int port;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +47,19 @@ public class Settings extends AppCompatActivity {
         et4 = (EditText) findViewById(R.id.editText4);
         etp = (EditText) findViewById(R.id.editText_Port);
 
+        checkBox_Up = (CheckBox) findViewById(R.id.up);
+        checkBox_Down= (CheckBox)findViewById(R.id.down);
+
+
 
 
         String u = sPref.getString("ip_address", "");
-        Log.d("TAG", "onCreate: IP "+u);
+
 
         int port=  sPref.getInt("port", 80);
+        checkBox_Up.setChecked(sPref.getBoolean("check_up",false));
+        checkBox_Down.setChecked(sPref.getBoolean("check_down", false));
+
         try {
             assert u != null;
             String[] ips = u.split("\\.");
@@ -75,7 +84,7 @@ public class Settings extends AppCompatActivity {
         chooseSec.setAdapter(adapter1);
 
         time=sPref.getInt("time", 0);
-        Log.d("TAG", "onCreate: IPs "+time);
+
         switch (time)
         {
             case 0:
@@ -203,6 +212,9 @@ public class Settings extends AppCompatActivity {
                     SharedPreferences.Editor sE = sPref.edit();
                     sE.putString("ip_address", ip_address);
                     sE.putInt("port", port);
+                    sE.putBoolean("check_up", checkBox_Up.isChecked());
+                    sE.putBoolean("check_down", checkBox_Down.isChecked());
+
 
                     sE.apply();
 

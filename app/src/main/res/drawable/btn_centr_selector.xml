@@ -15,15 +15,16 @@
         android:drawable="@drawable/btn_center_shape"
         android:state_focused="true"
         android:state_pressed="false">
-
-
-
     </item>
+
     <item
         android:drawable="@drawable/btn_center_shape"
         android:state_focused="false"
         android:state_pressed="false"/>
-
+    <item
+        android:drawable="@drawable/btn_center_shape"
+        android:state_enabled="true"
+        />
 
 
 </selector>
