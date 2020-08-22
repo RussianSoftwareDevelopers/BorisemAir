@@ -25,16 +25,16 @@ class AdapterBrands extends RecyclerView.Adapter<AdapterBrands.MyViewHolder>{
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
 
-       final ImageButton imageButton = (ImageButton) holder.view.findViewById(R.id.imageViewBrand);
-       imageButton.setTag(position);
-       imageButton.setImageResource(objects.get(position));
+        final ImageButton imageButton = (ImageButton) holder.view.findViewById(R.id.imageViewBrand);
+        imageButton.setTag(position);
+        imageButton.setImageResource(objects.get(position));
 
-       imageButton.setOnClickListener(new View.OnClickListener() {
+        imageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            ImageButton imageButton1 = (ImageButton)v;
-            int id  =    (Integer)imageButton1.getTag();
-            oncheckBrand.OnCheckBrandLisner(objects.get(id));
+                ImageButton imageButton1 = (ImageButton)v;
+                int id  =    (Integer)imageButton1.getTag();
+                oncheckBrand.OnCheckBrandLisner(objects.get(id));
             }
         });
     }
@@ -52,14 +52,14 @@ class AdapterBrands extends RecyclerView.Adapter<AdapterBrands.MyViewHolder>{
         public View view;
         public MyViewHolder(View v) {
             super(v);
-          view  = v;
+            view  = v;
         }
     }
 
-   private Context ctx;
-   private LayoutInflater lInflater;
-   private ArrayList<Integer> objects;
-   private  OncheckBrand oncheckBrand;
+    private Context ctx;
+    private LayoutInflater lInflater;
+    private ArrayList<Integer> objects;
+    private  OncheckBrand oncheckBrand;
 
     AdapterBrands(Context context, ArrayList<Integer> infoGyms, OncheckBrand oncheckBrand1) {
         ctx = context;

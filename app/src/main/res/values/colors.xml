@@ -7,7 +7,11 @@
     <color name="button_checked">#FF0000</color>
     <color name="red">#F44336</color>
     <color name="black">#000000</color>
+    <color name="black1">#A8232222</color>
+
+
     <color name="white">#ffffff</color>
+    <color name="prozracniy_fon">#00FFFFFF</color>
     <color name="green_bac">#6D9359</color>
     <color name="yellow">#FFEB3B</color>
     <color name="orange">#FF9800</color>
@@ -24,6 +28,7 @@
     <color name="dark_theme_bac1">#CC00335D</color>
     <color name="dark_theme_bac2">#CC002A40</color>
     <color name="dark_theme_bac3">#CC0E0055</color>
+    <color name="dark_theme_bac4">#A80466B7</color>
 
 
 </resources>

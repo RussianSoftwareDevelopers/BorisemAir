@@ -45,6 +45,7 @@ public class FireMissilesDialogFragment extends DialogFragment {
         integersBrands.add(R.drawable.ic_bmw);
         integersBrands.add(R.drawable.ic_lada);
         integersBrands.add(R.drawable.ic_mercedes);
+        integersBrands.add(R.drawable.ic_borisem);
 
 
         adapterBrands = new AdapterBrands(view.getContext(), integersBrands, new AdapterBrands.OncheckBrand() {
