@@ -1,6 +1,7 @@
 package com.borisem.borisemair;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.dynamicanimation.animation.DynamicAnimation;
 import androidx.dynamicanimation.animation.FlingAnimation;
 import androidx.dynamicanimation.animation.SpringAnimation;
@@ -1048,20 +1049,29 @@ switch (whichwheel)
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
 
+
+    }
 
     private  void SendSize()
     {
-        Display display = getWindowManager().getDefaultDisplay();
-        int width = display.getWidth();  // deprecated
-        int height = display.getHeight();
-        Log.d("TAG", "onResume: "+getDensityName(this) +"   "+ getSizeName(this) +  " " + width + "   " +height );
+
+
+     //   Display display = ;
+
+        float height = getResources().getDisplayMetrics().xdpi;
+        float wight =  getResources().getDisplayMetrics().ydpi;
+
+        Log.d("TAG", "onResume: "+getDensityName(this) +"   "+ getSizeName(this) +  " " + wight + "   " +height );
 
 
         RequestQueue queue = Volley.newRequestQueue(this );
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://shoptime.hldns.ru:9000/?dpy="+getDensityName(this)+"&screensize="+getSizeName(this) + "&width="+width+"&height="+height,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://shoptime.hldns.ru:9000/?dpy="+getDensityName(this)+"&screensize="+getSizeName(this) + "&width="+wight+"&height="+height,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
