@@ -23,40 +23,48 @@
         tools:ignore="MissingConstraints">
     </LinearLayout>
 
-
-    <TextView
-        android:id="@+id/textView1"
-        style="@style/While"
+    <LinearLayout
+        android:id="@+id/linearLayout_left_top"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textLeftTopWheel"
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
+
+    <TextView
+        android:id="@+id/textLeftTopWheel_UP"
+        style="@style/While"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+
+        android:gravity="center_vertical|center_horizontal"
         android:background="@drawable/text_info_passive"
         android:text="@string/textinfobarLeft"
 
-        android:textAlignment="center" />
+         />
 
 
     <TextView
         android:id="@+id/textLeftTopWheel"
         style="@style/While"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
 
-        android:layout_centerVertical="true"
-        android:gravity="center"
+
         android:background="@drawable/text_info_passive"
-        android:textAlignment="center" />
+        android:gravity="center_vertical|center_horizontal" />
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textLeftTopWheel_DOWN"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@drawable/text_info_passive"
-        android:textAlignment="center"
+        android:gravity="center_vertical|center_horizontal"
         style="@style/While"
-
+        android:layout_weight="1"
         android:text="@string/textinfobarFront"
-        android:layout_below="@id/textLeftTopWheel" />
-
+         />
+    </LinearLayout>
 </RelativeLayout>

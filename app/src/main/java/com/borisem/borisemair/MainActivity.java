@@ -1,6 +1,10 @@
 package com.borisem.borisemair;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.dynamicanimation.animation.DynamicAnimation;
+import androidx.dynamicanimation.animation.FlingAnimation;
+import androidx.dynamicanimation.animation.SpringAnimation;
+import androidx.dynamicanimation.animation.SpringForce;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
@@ -8,14 +12,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,9 +51,19 @@ public class MainActivity extends AppCompatActivity {
 
     public static int time;
     private boolean isCheck_up, isCheck_down;
-    TextView leftBottomWheelTxt, rightBottomWheelTxt, rightTopWheelTxt, leftTopWheelTxt, textViewCentr;
+    TextView leftBottomWheelTxt, rightBottomWheelTxt, rightTopWheelTxt, leftTopWheelTxt, textViewCentr, leftBottomWheelTxt_UP, leftBottomWheelTxt_DOWN,
+            rightBottomWheelTxt_UP, rightBottomWheelTxt_DOWN, rightTopWheelTxt_UP, rightTopWheelTxt_DOWN, leftTopWheelTxt_UP, leftTopWheelTxt_DOWN;
+    ;
+    TextView[] textViewsleftBottomWheel;
+    TextView[] textViewsrightBottomWheel;
+    TextView[] textViewsrightTopWheelTxt ;
+    TextView[] textViewsleftTopWheelTxt ;
 
     ImageButton[] imageButtons;
+
+
+    private LinearLayout linearLayout_left_top;
+    private LinearLayout linearLayout_right_top;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,11 +109,30 @@ public class MainActivity extends AppCompatActivity {
         all_wheel_ap =(ImageButton)findViewById(R.id.centr_btn);
         all_wheel_down =  (ImageButton)findViewById(R.id.centr_btn);
 
-
+        leftBottomWheelTxt_UP = (TextView) findViewById(R.id.textLeftBottomWheel_UP);
         leftBottomWheelTxt  = (TextView) findViewById(R.id.textLeftBottomWheel);
+        leftBottomWheelTxt_DOWN = (TextView) findViewById(R.id.textLeftBottomWheel_Down);
+
+        rightBottomWheelTxt_UP = (TextView) findViewById(R.id.textRightBottomWheel_UP);
         rightBottomWheelTxt = (TextView) findViewById(R.id.textRightBottomWheel);
-        rightTopWheelTxt = (TextView) findViewById(R.id.textLeftTopWheel);
-        leftTopWheelTxt = (TextView)findViewById(R.id.textRighTopWheel);
+        rightBottomWheelTxt_DOWN =(TextView) findViewById(R.id.textRightBottomWheel_DOWN);
+
+        rightTopWheelTxt_UP =(TextView) findViewById(R.id.textRightBottomWheel_UP);
+        rightTopWheelTxt = (TextView) findViewById(R.id.textRighTopWheel);
+        rightTopWheelTxt_DOWN =(TextView) findViewById(R.id.textRighTopWheel_DOWN);
+
+        leftTopWheelTxt_UP = (TextView) findViewById(R.id.textLeftTopWheel_UP);
+        leftTopWheelTxt = (TextView)findViewById(R.id.textLeftTopWheel);
+        leftTopWheelTxt_DOWN = (TextView) findViewById(R.id.textLeftTopWheel_DOWN);
+
+       textViewsleftBottomWheel  = new TextView[]{leftBottomWheelTxt_UP, leftBottomWheelTxt, leftBottomWheelTxt_DOWN};
+       textViewsrightBottomWheel = new TextView[]{rightBottomWheelTxt_UP, rightBottomWheelTxt, rightBottomWheelTxt_DOWN};
+       textViewsrightTopWheelTxt = new TextView[]{rightTopWheelTxt_UP,rightTopWheelTxt, rightTopWheelTxt_DOWN};
+       textViewsleftTopWheelTxt  = new TextView[]{leftTopWheelTxt_UP, leftTopWheelTxt, leftTopWheelTxt_DOWN};
+
+
+        linearLayout_left_top = findViewById(R.id.linearLayout_left_top);
+        linearLayout_right_top= findViewById(R.id.linearLayout_right_top);
 
         supportFragmentManager = getSupportFragmentManager();
 
@@ -103,6 +140,8 @@ public class MainActivity extends AppCompatActivity {
         time=sPref.getInt("time", 0);
 
         textViewCentr=(TextView)findViewById(R.id.textView6);
+
+
 
 
         centr_btn.setOnTouchListener(new View.OnTouchListener() {
@@ -257,10 +296,15 @@ public class MainActivity extends AppCompatActivity {
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&UP");
 
+                    ResizeUP( linearLayout_left_top, v, true);
+
+
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
                     SendCommand("FL&0&UP&STOP");
+                    ResizeUP(linearLayout_left_top,v, true);
                 }
                 return true;
             }
@@ -280,11 +324,12 @@ public class MainActivity extends AppCompatActivity {
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&DOWN");
-
+                    ResizeUP( linearLayout_left_top, v, false);
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
                     SendCommand("FL&0&DOWN&STOP");
+                    ResizeUP( linearLayout_left_top, v, false);
                 }
                 return true;
             }
@@ -350,12 +395,13 @@ public class MainActivity extends AppCompatActivity {
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&UP");
-
+                    ResizeUP(linearLayout_right_top, v, true);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
                     SendCommand("FR&0&UP&STOP");
+                    ResizeUP(linearLayout_right_top, v, true);
                 }
                 return true;
             }
@@ -375,11 +421,13 @@ public class MainActivity extends AppCompatActivity {
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&DOWN");
                     BlockButtons(v, false);
+                    ResizeUP(linearLayout_right_top, v, false);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
                     SendCommand("FR&0&DOWN&STOP");
+                    ResizeUP(linearLayout_right_top, v, false);
                 }
                 return true;
             }
@@ -444,12 +492,16 @@ public class MainActivity extends AppCompatActivity {
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("F&UP");
-
+                    ResizeUP(linearLayout_right_top, v, true);
+                    ResizeUP(linearLayout_left_top, v, true);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
                     SendCommand("F&UP&STOP");
+                    ResizeUP(linearLayout_right_top, v, true);
+                    ResizeUP(linearLayout_left_top, v, true);
+
                 }
                 return true;
             }
@@ -467,11 +519,15 @@ public class MainActivity extends AppCompatActivity {
                     v.setPressed(true);
                     BlockButtons(v, false);
                     SendCommand("F&DOWN");
+                    ResizeUP(linearLayout_right_top, v, true);
+                    ResizeUP(linearLayout_left_top, v, true);
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
                     BlockButtons(v, true);
 
                     SendCommand("F&DOWN&STOP");
+                    ResizeUP(linearLayout_right_top, v, false);
+                    ResizeUP(linearLayout_left_top, v, false);
                 }
                 return true;
             }
@@ -704,6 +760,120 @@ switch (whichwheel)
 
 
 
+
+
+    }
+
+
+
+    private void ResizeUP(final LinearLayout linearLayout, final View btn, final boolean isUpDown)
+    {
+
+
+        if(btn.isPressed())
+        {
+
+
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+
+                    float countsize = 1;
+                  while (btn.isPressed()){
+
+                    if(isUpDown) {
+                        countsize = countsize + (float) 0.01;
+
+
+                    }
+                    else {
+
+                        countsize = countsize - (float) 0.01;
+                    }
+
+
+
+                      final float finalCountsize = countsize;
+                      runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+                                if(isUpDown) {
+                                    linearLayout.getChildAt(0).setBackground(getResources().getDrawable(R.drawable.text_info_up));
+                                    linearLayout.getChildAt(1).setBackground(getResources().getDrawable(R.drawable.text_info_up));
+                                    linearLayout.getChildAt(2).setBackground(getResources().getDrawable(R.drawable.text_info_up));
+                                }
+                                else
+                                {
+                                    linearLayout.getChildAt(0).setBackground(getResources().getDrawable(R.drawable.text_info_dwn));
+                                    linearLayout.getChildAt(1).setBackground(getResources().getDrawable(R.drawable.text_info_dwn));
+                                    linearLayout.getChildAt(2).setBackground(getResources().getDrawable(R.drawable.text_info_dwn));
+
+                                }
+
+                                linearLayout.setScaleY(finalCountsize);
+
+                            }
+                        });
+
+
+
+                        try {
+                            Thread.sleep(200);
+                        } catch (InterruptedException e) {
+
+                        }
+                    }
+
+
+
+                }
+            }).start();
+
+        }
+        else
+        {
+
+
+
+
+
+            SpringAnimation springAnimation    = new SpringAnimation(linearLayout, DynamicAnimation.SCALE_Y);
+
+            SpringForce springForce = new SpringForce();
+
+            springForce.setFinalPosition(1);
+            springForce.setDampingRatio(SpringForce.DAMPING_RATIO_HIGH_BOUNCY);
+            springForce.setStiffness(SpringForce.STIFFNESS_LOW);
+
+            springAnimation.setSpring(springForce);
+
+            springAnimation.setStartVelocity(2f);
+            springAnimation.start();
+
+
+
+            springAnimation.addEndListener(new DynamicAnimation.OnAnimationEndListener() {
+                @Override
+                public void onAnimationEnd(DynamicAnimation animation, boolean canceled, float value, float velocity) {
+
+                    linearLayout.getChildAt(0).setBackground(getResources().getDrawable(R.drawable.text_info_passive));
+                    linearLayout.getChildAt(1).setBackground(getResources().getDrawable(R.drawable.text_info_passive));
+                    linearLayout.getChildAt(2).setBackground(getResources().getDrawable(R.drawable.text_info_passive));
+
+
+
+                }
+            });
+
+
+
+
+         //   final int firstHeght = (int)linearLayout.getTag();
+          //
+
+
+        }
 
 
     }

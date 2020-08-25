@@ -23,17 +23,21 @@
         tools:ignore="MissingConstraints">
     </LinearLayout>
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:orientation="vertical"
+    android:layout_centerVertical="true">
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textLeftBottomWheel_UP"
         style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textLeftBottomWheel"
+        android:gravity="center"
         android:background="@drawable/text_info_passive"
         android:text="@string/textinfobarLeft"
-
-        android:textAlignment="center" />
+        android:layout_weight="1"
+         />
 
 
     <TextView
@@ -41,22 +45,23 @@
         style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
 
-        android:layout_centerVertical="true"
         android:gravity="center"
         android:background="@drawable/text_info_passive"
         android:textAlignment="center" />
 
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/textLeftBottomWheel_Down"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/text_info_passive"
-        android:textAlignment="center"
+        android:gravity="center"
+
         style="@style/While"
-
+        android:layout_weight="1"
         android:text="@string/textinfobarBack"
-        android:layout_below="@id/textLeftBottomWheel" />
-
+        />
+</LinearLayout>
 </RelativeLayout>

@@ -19,7 +19,7 @@
 
     <include
         android:id="@+id/includeTopRight"
-        layout="@layout/layout_wheel_right_top"
+        layout="@layout/layout_wheel_left_top"
         android:layout_width="@dimen/sizeWheelWight"
         android:layout_height="@dimen/sizeWheelheight"
 
@@ -31,7 +31,7 @@
 
     <include
         android:id="@+id/includeTopRight"
-        layout="@layout/layout_wheel_left_top"
+        layout="@layout/layout_wheel_right_top"
         android:layout_width="@dimen/sizeWheelWight"
         android:layout_height="@dimen/sizeWheelheight"
 
