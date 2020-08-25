@@ -22,14 +22,19 @@
         android:orientation="horizontal"
         tools:ignore="MissingConstraints">
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/linearLayout_right_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true">
 
     <TextView
         android:id="@+id/textRightBottomWheel_UP"
         style="@style/While"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textRightBottomWheel"
+
         android:background="@drawable/text_info_passive"
         android:text="@string/textinfobarRight"
 
@@ -42,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        android:layout_centerVertical="true"
+
         android:gravity="center"
         android:background="@drawable/text_info_passive"
         android:textAlignment="center" />
@@ -57,6 +62,6 @@
         style="@style/While"
 
         android:text="@string/textinfobarBack"
-        android:layout_below="@id/textRightBottomWheel" />
-
+         />
+</LinearLayout>
 </RelativeLayout>

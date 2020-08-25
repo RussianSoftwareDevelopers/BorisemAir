@@ -64,6 +64,11 @@ public class MainActivity extends AppCompatActivity {
 
     private LinearLayout linearLayout_left_top;
     private LinearLayout linearLayout_right_top;
+    private LinearLayout linearLayout_left_bottom;
+    private LinearLayout linearLayout_right_bottom;
+
+    private boolean FlagPressed;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
 
         linearLayout_left_top = findViewById(R.id.linearLayout_left_top);
         linearLayout_right_top= findViewById(R.id.linearLayout_right_top);
+        linearLayout_left_bottom = findViewById(R.id.linearLayout_left_bottom);
+        linearLayout_right_bottom = findViewById(R.id.linearLayout_right_bottom);
 
         supportFragmentManager = getSupportFragmentManager();
 
@@ -158,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         {
 
-                            Log.d("TAG", "onTouch: "+isCheck_up+ " "+ isCheck_down);
+
                             if(isCheck_up)
                             {
                                 timehelper=time;
@@ -172,6 +179,14 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             BlockButtons(v, false);
+                            FlagPressed=true;
+                            ResizeUP(linearLayout_left_bottom, FlagPressed, true);
+                            ResizeUP(linearLayout_right_bottom, FlagPressed, true);
+                            ResizeUP(linearLayout_left_top, FlagPressed, true);
+                            ResizeUP(linearLayout_right_top, FlagPressed, true);
+
+                            Log.d("TAG", "onTouch: " + v.isPressed());
+
                             SendCommand("FB&"+timehelper+"&UP");
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                 v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color_up));
@@ -196,6 +211,11 @@ public class MainActivity extends AppCompatActivity {
                                 }
 
                                 BlockButtons(v, false);
+                                FlagPressed=true;
+                                ResizeUP(linearLayout_left_bottom,true, false);
+                                ResizeUP(linearLayout_right_bottom, true, false);
+                                ResizeUP(linearLayout_left_top, true, false);
+                                ResizeUP(linearLayout_right_top, true, false);
                                 SendCommand("FB&"+timehelper+"&DOWN");
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
@@ -206,9 +226,12 @@ public class MainActivity extends AppCompatActivity {
 
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        FlagPressed=false;
 
-
-
+                        ResizeUP(linearLayout_left_bottom,FlagPressed, false);
+                        ResizeUP(linearLayout_right_bottom, FlagPressed, false);
+                        ResizeUP(linearLayout_left_top, FlagPressed, false);
+                        ResizeUP(linearLayout_right_top, FlagPressed, false);
 
                             BlockButtons(v, true);
                             v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_center_shape));
@@ -217,6 +240,7 @@ public class MainActivity extends AppCompatActivity {
                                 timehelper=0;
                                 if (event.getY() < (v.getHeight() / 2)) {
                                     SendCommand("FB&" + timehelper + "&UP&STOP");
+
                                 }
 
                             }
@@ -225,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
                                 timehelper=0;
                                 if (event.getY() > (v.getHeight() / 2)) {
                                     SendCommand("FB&" + timehelper + "&DOWN&STOP");
+
 
                                 }
 
@@ -292,19 +317,21 @@ public class MainActivity extends AppCompatActivity {
 
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&UP");
 
-                    ResizeUP( linearLayout_left_top, v, true);
+                    ResizeUP( linearLayout_left_top, FlagPressed, true);
 
 
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("FL&0&UP&STOP");
-                    ResizeUP(linearLayout_left_top,v, true);
+                    ResizeUP(linearLayout_left_top,FlagPressed, true);
                 }
                 return true;
             }
@@ -319,17 +346,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
+
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FL&0&DOWN");
-                    ResizeUP( linearLayout_left_top, v, false);
+                    ResizeUP( linearLayout_left_top, FlagPressed, false);
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("FL&0&DOWN&STOP");
-                    ResizeUP( linearLayout_left_top, v, false);
+                    ResizeUP( linearLayout_left_top, FlagPressed, false);
                 }
                 return true;
             }
@@ -341,16 +371,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 int action = event.getAction();
+
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BL&0&UP");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, true);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("BL&0&UP&STOP");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, true);
                 }
                 return true;
             }
@@ -362,18 +397,22 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BL&0&DOWN");
-
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, false);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("BL&0&DOWN&STOP");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, false);
                 }
                 return true;
             }
@@ -389,19 +428,22 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                FlagPressed = v.isPressed();
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&UP");
-                    ResizeUP(linearLayout_right_top, v, true);
+                    ResizeUP(linearLayout_right_top, FlagPressed, true);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("FR&0&UP&STOP");
-                    ResizeUP(linearLayout_right_top, v, true);
+                    ResizeUP(linearLayout_right_top, FlagPressed, true);
                 }
                 return true;
             }
@@ -415,19 +457,22 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("FR&0&DOWN");
                     BlockButtons(v, false);
-                    ResizeUP(linearLayout_right_top, v, false);
+                    ResizeUP(linearLayout_right_top, FlagPressed, false);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("FR&0&DOWN&STOP");
-                    ResizeUP(linearLayout_right_top, v, false);
+                    ResizeUP(linearLayout_right_top, FlagPressed, false);
                 }
                 return true;
             }
@@ -440,18 +485,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BR&0&UP");
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, true);
 
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("BR&0&UP&STOP");
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, false);
                 }
                 return true;
             }
@@ -461,18 +511,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("BR&0&DOWN");
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, false);
 
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("BR&0&DOWN&STOP");
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, false);
                 }
                 return true;
             }
@@ -486,21 +541,24 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     v.setBackground(getResources().getDrawable(R.drawable.button_back_up, getTheme()));
                     SendCommand("F&UP");
-                    ResizeUP(linearLayout_right_top, v, true);
-                    ResizeUP(linearLayout_left_top, v, true);
+                    ResizeUP(linearLayout_right_top, FlagPressed, true);
+                    ResizeUP(linearLayout_left_top, FlagPressed, true);
 
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("F&UP&STOP");
-                    ResizeUP(linearLayout_right_top, v, true);
-                    ResizeUP(linearLayout_left_top, v, true);
+                    ResizeUP(linearLayout_right_top, FlagPressed, true);
+                    ResizeUP(linearLayout_left_top,FlagPressed, true);
 
                 }
                 return true;
@@ -514,20 +572,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     SendCommand("F&DOWN");
-                    ResizeUP(linearLayout_right_top, v, true);
-                    ResizeUP(linearLayout_left_top, v, true);
+                    ResizeUP(linearLayout_right_top, FlagPressed, false);
+                    ResizeUP(linearLayout_left_top, FlagPressed, false);
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
 
                     SendCommand("F&DOWN&STOP");
-                    ResizeUP(linearLayout_right_top, v, false);
-                    ResizeUP(linearLayout_left_top, v, false);
+                    ResizeUP(linearLayout_right_top, FlagPressed, false);
+                    ResizeUP(linearLayout_left_top, FlagPressed, false);
                 }
                 return true;
             }
@@ -540,16 +601,27 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
+
+
+
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     SendCommand("B&UP");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, true);
+                    ResizeUP(linearLayout_right_bottom,FlagPressed, true);
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     BlockButtons(v, true);
 
                     SendCommand("B&UP&STOP");
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, true);
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, true);
                 }
                 return true;
             }
@@ -562,15 +634,23 @@ public class MainActivity extends AppCompatActivity {
             @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+
                 int action = event.getAction();
                 if(action == MotionEvent.ACTION_DOWN){  // Кнопка нажата
                     v.setPressed(true);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, false);
                     SendCommand("B&DOWN");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, false);
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, false);
+
                 } else if(action == MotionEvent.ACTION_UP){  // Кнопка отжата
                     v.setPressed(false);
+                    FlagPressed = v.isPressed();
                     BlockButtons(v, true);
                     SendCommand("B&DOWN&STOP");
+                    ResizeUP(linearLayout_left_bottom, FlagPressed, false);
+                    ResizeUP(linearLayout_right_bottom, FlagPressed, false);
                 }
                 return true;
             }
@@ -766,11 +846,11 @@ switch (whichwheel)
 
 
 
-    private void ResizeUP(final LinearLayout linearLayout, final View btn, final boolean isUpDown)
+    private void ResizeUP(final LinearLayout linearLayout, final boolean isPressed, final boolean isUpDown)
     {
 
 
-        if(btn.isPressed())
+        if(isPressed)
         {
 
 
@@ -779,7 +859,7 @@ switch (whichwheel)
                 public void run() {
 
                     float countsize = 1;
-                  while (btn.isPressed()){
+                  while (FlagPressed){
 
                     if(isUpDown) {
                         countsize = countsize + (float) 0.01;
