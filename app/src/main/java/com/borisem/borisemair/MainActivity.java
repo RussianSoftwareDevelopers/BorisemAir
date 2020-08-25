@@ -16,6 +16,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
@@ -1045,7 +1046,7 @@ switch (whichwheel)
             recreate();
             NeedRecreate =false;
         }
-        SendSize();
+
 
     }
 
@@ -1053,25 +1054,28 @@ switch (whichwheel)
     protected void onStart() {
         super.onStart();
 
-
+        SendSize();
     }
 
     private  void SendSize()
     {
 
 
-     //   Display display = ;
+        Display display = getWindowManager().getDefaultDisplay();
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        display.getMetrics(outMetrics);
+        float density = getResources().getDisplayMetrics().density;
+        float width = outMetrics.heightPixels / density;
+        float height = outMetrics.widthPixels / density;
 
-        float height = getResources().getDisplayMetrics().xdpi;
-        float wight =  getResources().getDisplayMetrics().ydpi;
 
-        Log.d("TAG", "onResume: "+getDensityName(this) +"   "+ getSizeName(this) +  " " + wight + "   " +height );
+        Log.d("TAG", "onResume: " + width + "  "+ height);
 
 
         RequestQueue queue = Volley.newRequestQueue(this );
 
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://shoptime.hldns.ru:9000/?dpy="+getDensityName(this)+"&screensize="+getSizeName(this) + "&width="+wight+"&height="+height,
+        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://shoptime.hldns.ru:9000/?dpy="+getDensityName(this)+"&screensize="+getSizeName(this) + "&width="+width+"&height="+height,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
