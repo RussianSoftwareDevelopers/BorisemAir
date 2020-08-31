@@ -76,31 +76,27 @@ public class Settings extends AppCompatActivity {
 
         chooseSec = (Spinner)findViewById(R.id.whatTime);
         ArrayList<String> seconds = new ArrayList<>();
-        seconds.add(0, "Выкл.");
-        seconds.add(1, "5 сек.");
-        seconds.add(2, "10 сек.");
-        seconds.add(3, "15 сек.");
+        seconds.add(0, "5 сек.");
+        seconds.add(1, "10 сек.");
+        seconds.add(2, "15 сек.");
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this, R.layout.adapter, seconds);
         chooseSec.setAdapter(adapter1);
 
-        time=sPref.getInt("time", 0);
+        time=sPref.getInt("time", 5);
 
         switch (time)
         {
-            case 0:
+
+            case 5:
                 chooseSec.setSelection(0);
                 break;
 
-            case 5:
+            case 10:
                 chooseSec.setSelection(1);
                 break;
 
-            case 10:
-                chooseSec.setSelection(2);
-                break;
-
             case 15:
-                chooseSec.setSelection(3);
+                chooseSec.setSelection(2);
                 break;
         }
 
@@ -124,21 +120,18 @@ public class Settings extends AppCompatActivity {
                 SharedPreferences.Editor editor =  sPref.edit();
                 switch (position){
                     case 0:
-                        time =0;
-                        editor.putInt("time", 0).apply();
-                        break;
-                    case 1:
-                        time =5;
+                        time = 5;
                         editor.putInt("time", 5).apply();
                         break;
-                    case 2:
+                    case 1:
                         time =10;
                         editor.putInt("time", 10).apply();
                         break;
-                    case 3:
+                    case 2:
                         time =15;
                         editor.putInt("time", 15).apply();
                         break;
+
                 }
             }
 

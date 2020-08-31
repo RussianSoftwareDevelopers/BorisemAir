@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
     private boolean FlagPressed;
 
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -146,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         supportFragmentManager = getSupportFragmentManager();
 
 
-        time=sPref.getInt("time", 0);
+        time=sPref.getInt("time", 5);
 
         textViewCentr=(TextView)findViewById(R.id.textView6);
 
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         centr_btn.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
+
             @Override
             public boolean onTouch(View v, MotionEvent event) {
            /*   Log.d("TAG", "onTouch: "+ event.getAction());
@@ -187,12 +188,22 @@ public class MainActivity extends AppCompatActivity {
                             ResizeUP(linearLayout_left_top, FlagPressed, true);
                             ResizeUP(linearLayout_right_top, FlagPressed, true);
 
-                            Log.d("TAG", "onTouch: " + v.isPressed());
+                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                Log.d("TAG", "onTouch: DWN"  + android.os.Build.VERSION.SDK_INT);
+                                v.setBackgroundResource(R.drawable.btn_centr_color_up);
+                            }
 
                             SendCommand("FB&"+timehelper+"&UP");
-                            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                                v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color_up));
+                            if(isCheck_up) {
+
+                                new Thread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        SendCommand("WAIT");
+                                    }
+                                }).start();
                             }
+
                         }
                     }
                 }
@@ -219,6 +230,18 @@ public class MainActivity extends AppCompatActivity {
                                 ResizeUP(linearLayout_left_top, true, false);
                                 ResizeUP(linearLayout_right_top, true, false);
                                 SendCommand("FB&"+timehelper+"&DOWN");
+                                if(isCheck_down) {
+
+                                    new Thread(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            SendCommand("WAIT");
+                                        }
+                                    }).start();
+                                }
+
+
+
                                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                                     v.setBackground(getApplicationContext().getDrawable(R.drawable.btn_centr_color));
                                 }
@@ -229,7 +252,7 @@ public class MainActivity extends AppCompatActivity {
                 if (event.getAction() == MotionEvent.ACTION_UP) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         FlagPressed=false;
-
+                        Log.d("TAG", "onTouch: UP"  );
                         ResizeUP(linearLayout_left_bottom,FlagPressed, false);
                         ResizeUP(linearLayout_right_bottom, FlagPressed, false);
                         ResizeUP(linearLayout_left_top, FlagPressed, false);
@@ -669,7 +692,7 @@ public class MainActivity extends AppCompatActivity {
     public void SendCommand(String cmd)
     {
 
-        ReloadStaus(cmd);
+     //   ReloadStaus(cmd);
 
         if(!url.equals("")) {
             urlHelper=url;
@@ -699,7 +722,11 @@ public class MainActivity extends AppCompatActivity {
                             R.string.error, Toast.LENGTH_SHORT);
                     toast.show();
                     BlockButtons(null, true);
-
+                    ResizeUP(linearLayout_left_bottom,false, false);
+                    ResizeUP(linearLayout_right_bottom, false, false);
+                    ResizeUP(linearLayout_left_top, false, false);
+                    ResizeUP(linearLayout_right_top, false, false);
+                    FlagPressed=false;
                  //ParseCmdResponse("FB&5&DOWN&START");
 
                 }
@@ -775,9 +802,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void ParseCmdResponse(String response) {
 
-        Toast toast = Toast.makeText(getApplicationContext(),
+       /* Toast toast = Toast.makeText(getApplicationContext(),
                 response, Toast.LENGTH_SHORT);
-        toast.show();
+        toast.show();*/
+
 
 
             response = response.replace("\n", "");
@@ -785,34 +813,41 @@ public class MainActivity extends AppCompatActivity {
             String[] info = response.split("&");
             String whichwheel = response.split("&")[0];
 
-            if(info[info.length-1].equals("STOP"))
-            {
+
+            String status = info[info.length-1];
 
 
 
+            ChangeWhileStastus(whichwheel, status);
 
-            }
+
 
 switch (whichwheel)
 {
 
     case "FB":
+        leftTopWheelTxt.setText(status);
+        rightTopWheelTxt.setText(status);
+        leftBottomWheelTxt.setText(status);
+        rightBottomWheelTxt.setText(status);
         if(info[info.length-1].equals("START")) {
-            Log.d("TAG", "ParseCmdResponse: " + response);
-            textViewCentr.setText("Start");
 
-         new Thread(new Runnable() {
-             @Override
-             public void run() {
-                 SendCommand("WAIT");
-             }
-         }).start();
+            textViewCentr.setText(status);
+
+            Log.d("TAG", "ParseCmdResponse: "+ time);
+
+
+
 
         }
         if(info[info.length-1].equals("OK"))
         {
-            textViewCentr.setText("Ok");
-
+            textViewCentr.setText("OK");
+            ResizeUP(linearLayout_left_bottom,false, false);
+            ResizeUP(linearLayout_right_bottom, false, false);
+            ResizeUP(linearLayout_left_top, false, false);
+            ResizeUP(linearLayout_right_top, false, false);
+            FlagPressed=false;
         }
 
         break;
@@ -823,7 +858,9 @@ switch (whichwheel)
         if(info[info.length-1].equals("OK"))
         {
 
-            ChangeWhileStastus(whichwheel, "Ok");
+
+
+
             if(whichwheel.equals("FB"))
             {
                 BlockButtons(null, true);
@@ -970,7 +1007,6 @@ switch (whichwheel)
 
             case "FL":
                 leftTopWheelTxt.setText(status);
-
                 break;
             case "FR":
                 rightTopWheelTxt.setText(status);
