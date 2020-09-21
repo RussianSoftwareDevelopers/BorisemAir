@@ -9,6 +9,8 @@ import androidx.dynamicanimation.animation.SpringForce;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.app.VoiceInteractor;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,6 +38,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.plattysoft.leonids.ParticleSystem;
 
 public class MainActivity extends AppCompatActivity {
     public static   SharedPreferences sPref;
@@ -847,7 +850,31 @@ switch (whichwheel)
             ResizeUP(linearLayout_right_bottom, false, false);
             ResizeUP(linearLayout_left_top, false, false);
             ResizeUP(linearLayout_right_top, false, false);
+
+            linearLayout_left_bottom.setVisibility(View.INVISIBLE);
+            linearLayout_right_bottom.setVisibility(View.INVISIBLE);
+            linearLayout_left_top.setVisibility(View.INVISIBLE);
+            linearLayout_right_top.setVisibility(View.INVISIBLE);
+
+            new ParticleSystem(MainActivity.this, 100, R.drawable.star_pink, 800)
+                    .setSpeedRange(0.1f, 0.25f)
+                    .oneShot(linearLayout_left_bottom, 100);
+
+            new ParticleSystem(MainActivity.this, 100, R.drawable.star_pink, 800)
+                    .setSpeedRange(0.1f, 0.25f)
+                    .oneShot(linearLayout_right_bottom, 100);
+            new ParticleSystem(MainActivity.this, 100, R.drawable.star_pink, 800)
+                    .setSpeedRange(0.1f, 0.25f)
+                    .oneShot(linearLayout_left_top, 100);
+            new ParticleSystem(MainActivity.this, 100, R.drawable.star_pink, 800)
+                    .setSpeedRange(0.1f, 0.25f)
+                    .oneShot(linearLayout_right_top, 100);
             FlagPressed=false;
+
+
+
+
+
         }
 
         break;
@@ -857,6 +884,7 @@ switch (whichwheel)
 
         if(info[info.length-1].equals("OK"))
         {
+
 
 
 
@@ -888,7 +916,7 @@ switch (whichwheel)
     private void ResizeUP(final LinearLayout linearLayout, final boolean isPressed, final boolean isUpDown)
     {
 
-
+        final boolean[] isCrash = {false};
         if(isPressed)
         {
 
@@ -908,6 +936,9 @@ switch (whichwheel)
                     else {
 
                         countsize = countsize - (float) 0.01;
+
+
+
                     }
 
 
@@ -932,16 +963,49 @@ switch (whichwheel)
 
                                 linearLayout.setScaleY(finalCountsize);
 
+                                Log.d("TAG", "run: "+ finalCountsize);
+                                if(finalCountsize>1.8)
+                                {
+
+                                    linearLayout.setVisibility(View.INVISIBLE);
+                                 ParticleSystem j =   new ParticleSystem(MainActivity.this, 100, R.drawable.star_pink, 800)
+                                            .setSpeedRange(0.1f, 0.25f);
+
+                                         j.oneShot(linearLayout, 100);
+
+
+                                    //SendCommand("FB&0&DOWN&STOP");
+                                    FlagPressed=false;
+
+                            }
+
+                                if(finalCountsize<0.3){
+
+                                    linearLayout.setVisibility(View.INVISIBLE);
+
+                                    ParticleSystem j =   new ParticleSystem(MainActivity.this, 100, R.drawable.star_blue, 800)
+                                            .setSpeedRange(0.1f, 0.25f);
+
+                                    j.oneShot(linearLayout, 100);
+
+
+                                    //SendCommand("FB&0&DOWN&STOP");
+                                    FlagPressed=false;
+                                }
+
+
                             }
                         });
 
 
 
                         try {
-                            Thread.sleep(200);
+                            Thread.sleep((long) (200));
                         } catch (InterruptedException e) {
 
                         }
+
+
                     }
 
 
@@ -952,6 +1016,9 @@ switch (whichwheel)
         }
         else
         {
+
+
+
 
 
 
@@ -980,6 +1047,7 @@ switch (whichwheel)
                     linearLayout.getChildAt(1).setBackground(getResources().getDrawable(R.drawable.text_info_passive));
                     linearLayout.getChildAt(2).setBackground(getResources().getDrawable(R.drawable.text_info_passive));
 
+                    linearLayout.setVisibility(View.VISIBLE);
 
 
                 }
@@ -1082,6 +1150,8 @@ switch (whichwheel)
             recreate();
             NeedRecreate =false;
         }
+
+
 
 
     }
